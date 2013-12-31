@@ -1,0 +1,987 @@
+@inproceedings{kohlschuetter:webextract,
+    abstract = {{In addition to the actual content Web pages consist of navigational elements, templates, and advertisements. This boilerplate text typically is not related to the main content, may deteriorate search precision and thus needs to be detected properly. In this paper, we analyze a small set of shallow text features for classifying the individual text elements in a Web page. We compare the approach to complex, state-of-the-art techniques and show that competitive accuracy can be achieved, at almost no cost. Moreover, we derive a simple and plausible stochastic model for describing the boilerplate creation process. With the help of our model, we also quantify the impact of boilerplate removal to retrieval performance and show significant improvements over the baseline. Finally, we extend the principled approach by straight-forward heuristics, achieving a remarkable detection accuracy.}},
+    address = {New York, NY, USA},
+    author = {Kohlsch\"{u}tter, Christian and Fankhauser, Peter and Nejdl, Wolfgang},
+    booktitle = {Proceedings of the third ACM international conference on Web search and data mining},
+    citeulike-article-id = {8241255},
+    citeulike-linkout-0 = {http://portal.acm.org/citation.cfm?id=1718542},
+    citeulike-linkout-1 = {http://dx.doi.org/10.1145/1718487.1718542},
+    doi = {10.1145/1718487.1718542},
+    isbn = {978-1-60558-889-6},
+    location = {New York, New York, USA},
+    pages = {441--450},
+    posted-at = {2010-11-23 07:02:43},
+    priority = {2},
+    publisher = {ACM},
+    series = {WSDM '10},
+    title = {{Boilerplate detection using shallow text features}},
+    url = {http://code.google.com/p/boilerpipe/},
+    year = {2010}
+}
+
+
+
+
+@inproceedings{Goog:MapReduce,
+    abstract = {MapReduce is a programming model and an associated implementation for processing and generating large data sets.  Users specify a \_map\_ function that processes a key/value pair to generate a set of intermediate key/value pairs, and a \_reduce\_ function that merges all intermediate values associated with the same intermediate key.  Many real world tasks are expressible in this model, as shown in the paper. <P> Programs written in this functional style are automatically parallelized and executed on a large cluster of commodity machines. The run-time system takes care of the details of partitioning the input data, scheduling the program's execution across a set of machines, handling machine failures, and managing the required inter- machine communication.  This allows programmers without any experience with parallel and distributed systems to easily utilize the resources of a large distributed system.  <P> Our implementation of MapReduce runs on a large cluster of commodity machines and is highly scalable: a typical MapReduce computation processes many terabytes of data on thousands of machines. Programmers find the system easy to use: hundreds of MapReduce programs have been implemented and upwards of one thousand MapReduce jobs are executed on Google's clusters every day.     <P>},
+    author = {Dean, Jeffrey and Ghemawat, Sanjay},
+    citeulike-article-id = {430834},
+    citeulike-linkout-0 = {http://www.usenix.org/events/osdi04/tech/dean.html},
+    journal = {OSDI '04},
+    keywords = {cluster, google, parallel},
+    pages = {137--150},
+    posted-at = {2008-03-27 02:27:59},
+    priority = {3},
+    title = {MapReduce: Simplified Data Processing on Large Clusters},
+    url = {http://www.usenix.org/events/osdi04/tech/dean.html},
+    year = {2008},
+    booktitle = {MapReduce: Simplified Data Processing on Large Clusters}
+}
+
+@ARTICLE{Pang+Lee:08b,
+  author = {Bo Pang and Lillian Lee},
+  title = {Opinion mining and sentiment analysis},
+  journal = {Foundations and Trends in Information Retrieval},
+  year = {2008},
+  volume = {2},
+  pages = {1--135},
+  number = {1-2}
+}
+
+
+@article{Msft:MapReduce,
+    abstract = {Google's MapReduce programming model serves for processing large data sets in a massively parallel manner. We deliver the first rigorous description of the model including its advancement as Google's domain-specific language Sawzall. To this end, we reverse-engineer the seminal papers on MapReduce and Sawzall, and we capture our findings as an executable specification. We also identify and resolve some obscurities in the informal presentation given in the seminal papers. We use typed functional programming (specifically Haskell) as a tool for design recovery and executable specification. Our development comprises three components: (i) the basic program skeleton that underlies MapReduce computations; (ii) the opportunities for parallelism in executing MapReduce computations; (iii) the fundamental characteristics of Sawzall's aggregators as an advancement of the MapReduce approach. Our development does not formalize the more implementational aspects of an actual, distributed execution of MapReduce computations.},
+    author = {Lammel, Ralf},
+    citeulike-article-id = {2152671},
+    citeulike-linkout-0 = {http://portal.acm.org/citation.cfm?id=1290549.1290812},
+    citeulike-linkout-1 = {http://dx.doi.org/10.1016/j.scico.2007.07.001},
+    citeulike-linkout-2 = {http://linkinghub.elsevier.com/retrieve/pii/S0167642307001281},
+    citeulike-linkout-3 = {http://www.sciencedirect.com/science/article/B6V17-4P718HK-1/2/77f5109e6e40c6c24df92250b314c2f1},
+    doi = {10.1016/j.scico.2007.07.001},
+    journal = {Science of Computer Programming},
+    month = {January},
+    number = {1},
+    pages = {1--30},
+    posted-at = {2009-09-08 04:26:54},
+    priority = {2},
+    title = {Google's MapReduce programming model -- Revisited},
+    url = {http://dx.doi.org/10.1016/j.scico.2007.07.001},
+    volume = {70},
+    year = {2008}
+}
+
+@inproceedings{Theu:RHadoop,
+    author = {Theussl, Stefan},
+    booktitle = {Computational Finance and Financial Engineering, Second R/Rmetrics User and Developer Workshop},
+    year = {2009},
+    month = {June},
+    address = {Meielisalp, Lake Thune, Switzerland},
+    keywords = {cluster, google, parallel},
+    title = {Simple Parallel Computing in R Using Hadoop},
+    url = {http://www.rmetrics.org/Meielisalp2009/Presentations/Theussl1.pdf}
+}
+
+
+@inproceedings{Theu:RParallel,
+    author = {Theussl, Stefan},
+    booktitle = {Computational Finance and Financial Engineering, Second R/Rmetrics User and Developer Workshop},
+    year = {2008},
+    month = {June},
+    address = {Meielisalp, Lake Thune, Switzerland},
+    keywords = {cluster, parallel, r},
+    title = {Getting the most out of your CPUs: Parallel computing strategies in R},
+    url = {http://www.rmetrics.org/Meielisalp2008/Presentations/Theussl1.pdf},
+  lastchecked = {\today}
+}
+
+@webpage{Feinerer:TM,
+  author = {Feinerer,Ingo},
+  title = "tm: Text Mining Package",
+  url = "http://cran.r-project.org/web/packages/tm/index.html",
+  lastchecked = {\today}
+}
+
+@article{Bharat:Rank,
+ author = {Bharat, Krishna and Mihaila, George A.},
+ title = {When experts agree: using non-affiliated experts to rank popular topics},
+ journal = {ACM Trans. Inf. Syst.},
+ volume = {20},
+ issue = {1},
+ month = {January},
+ year = {2002},
+ issn = {1046-8188},
+ pages = {47--58},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/503104.503107},
+ doi = {http://doi.acm.org/10.1145/503104.503107},
+ acmid = {503107},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {WWW search, authorities, connectivity, host affiliation, link analysis, ranking, topic experts},
+} 
+
+
+@webpage{Apache:Hadoop,
+  author = {Apache, Software Foundation},
+  title = "Hadoop",
+  url = "http://hadoop.apache.org/",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@webpage{Spotlight,
+  author = {Reuters Labs},
+  title = "Reuters Spotlight",
+  url = "http://spotlight.reuters.com",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@webpage{SK:RGrowth,
+  author = {Reader SK, Revolution Analytics},
+  title = "R's exponential package growth, ctd.",
+  url = "http://blog.revolutionanalytics.com/2010/01/rs-exponential-package-growth-ctd.html",
+  year = 2010,
+  month = 1,
+  day = 7,
+  lastchecked = {\today}
+}
+
+@article{fama:EMH,
+    author = {Fama, Eugene F.},
+    citeulike-article-id = {1571390},
+    citeulike-linkout-0 = {http://dx.doi.org/10.2307/2350752},
+    citeulike-linkout-1 = {http://www.jstor.org/stable/2350752},
+    doi = {10.2307/2350752},
+    issn = {00219398},
+    journal = {The Journal of Business},
+    keywords = {behavior, stock-market},
+    number = {1},
+    pages = {34--105},
+    posted-at = {2008-09-23 23:37:46},
+    priority = {2},
+    publisher = {The University of Chicago Press},
+    title = {{The Behavior of Stock-Market Prices}},
+    url = {http://dx.doi.org/10.2307/2350752},
+    volume = {38},
+    year = {1965}
+}
+
+@article{fama:EMH2,
+    author = {Fama, Eugene F.},
+    citeulike-article-id = {1485929},
+    citeulike-linkout-0 = {http://dx.doi.org/10.2307/2325486},
+    citeulike-linkout-1 = {http://www.jstor.org/stable/2325486},
+    doi = {10.2307/2325486},
+    issn = {00221082},
+    journal = {The Journal of Finance},
+    keywords = {depaper, efficient, hypothesis, market},
+    number = {2},
+    pages = {383--417},
+    posted-at = {2008-05-25 20:16:01},
+    priority = {2},
+    publisher = {Blackwell Publishing for the American Finance Association},
+    title = {{Efficient Capital Markets: A Review of Theory and Empirical Work}},
+    url = {http://dx.doi.org/10.2307/2325486},
+    volume = {25},
+    year = {1970}
+}
+
+@book{PangLee:Opinion,
+    abstract = {{An important part of our information-gathering behavior has always been to find out what other people think. With the growing availability and popularity of opinion-rich resources such as online review sites and personal blogs, new opportunities and challenges arise as people can, and do, actively use information technologies to seek out and understand the opinions of others. The sudden eruption of activity in the area of opinion mining and sentiment analysis, which deals with the computational treatment of opinion, sentiment, and subjectivity in text, has thus occurred at least in part as a direct response to the surge of interest in new systems that deal directly with opinions as a first-class object. Opinion Mining and Sentiment Analysis covers techniques and approaches that promise to directly enable opinion-oriented information-seeking systems. The focus is on methods that seek to address the new challenges raised by sentiment-aware applications, as compared to those that are already present in more traditional fact-based analysis. The survey includes an enumeration of the various applications, a look at general challenges and discusses categorization, extraction and summarization. Finally, it moves beyond just the technical issues, devoting significant attention to the broader implications that the development of opinion-oriented information-access services have: questions of privacy, vulnerability to manipulation, and whether or not reviews can have measurable economic impact. To facilitate future work, a discussion of available resources, benchmark datasets, and evaluation campaigns is also provided. Opinion Mining and Sentiment Analysis is the first such comprehensive survey of this vibrant and important research area and will be of interest to anyone with an interest in opinion-oriented information-seeking systems.}},
+    author = {Pang, Bo and Lee, Lillian},
+    citeulike-article-id = {3481153},
+    day = {08},
+    howpublished = {Paperback},
+    isbn = {1601981503},
+    keywords = {information-retrieval, review, sentiment-analysis},
+    month = jul,
+    posted-at = {2009-09-20 21:20:23},
+    priority = {4},
+    publisher = {Now Publishers Inc},
+    title = {{Opinion Mining and Sentiment Analysis}},
+    url = {http://www.cs.cornell.edu/home/llee/opinion-mining-sentiment-analysis-survey.html},
+    year = {2008}
+}
+
+ 
+
+@article{hornik:Feinerer+Hornik+Meyer:2008,
+  author = {Ingo Feinerer and Kurt Hornik and David Meyer},
+  title = {Text Mining Infrastructure in {R}},
+  journal = {Journal of Statistical Software},
+  volume = 25,
+  number = 5,
+  pages = {1--54},
+  day = 10,
+  month = 2,
+  year = 2008,
+  coden = {JSSOBK},
+  issn = {1548-7660},
+  url = {http://www.jstatsoft.org/v25/i05},
+  accepted = {2008-02-10},
+  submitted = {2007-09-05},
+  file = {Feinerer+Hornik+Meyer_j=JSS_y=2008.pdf}
+  
+}
+ 
+@MISC{AlpertHajaj:GoogleBigWeb,
+author = {Jesse Alpert and Nissan Hajaj},
+title = {We knew the web was big... - The Official Google Blog.},
+year = {2008},
+month = {7}, 
+day = {25},
+url = { http://googleblog.blogspot.com/2008/07/we-knew-web-was-big.html}
+}
+
+@MISC{Elias:ExtMainText,
+author = {Jinliang Song},
+title = {ExtMainText - Extract main text from html document},
+year = {2010},
+url = { http://www.elias.cn/En/ExtMainText}
+}
+
+@MISC{AIDepot:ExtractHTMLEasy,
+author = {alexjc},
+title = {The Easy Way to Extract Useful Text from Arbitrary HTML},
+year = {2007},
+url = { http://ai-depot.com/articles/the-easy-way-to-extract-useful-text-from-arbitrary-html/}
+}
+
+@MISC{Snowball:Snowball,
+	author = "Martin Porter",
+	title = "Snowball:Snowball", 
+	url = "http://snowball.tartarus.org",
+	year = {2010},
+	lastchecked = {\today}
+}
+
+
+@MISC{YahooFinance:RSSIndesx,
+	author = "Yahoo!, Finance",
+	title = "RSS Feeds", 
+	url = "http://finance.yahoo.com/rssindex",
+	year = 2011,
+	lastchecked = {\today}
+}
+
+@MISC{YahooFinance:RSSAPI,
+	author = "Yahoo!, Finance",
+	title = "Company News RSS Feed", 
+	url = "http://developer.yahoo.com/finance/company.html",
+	year = 2011,
+	lastchecked = {\today}
+}
+
+
+@MISC{Gupta03dom-basedcontent,
+    author = {Suhit Gupta and Gail Kaiser and David Neistadt and Peter Grimm},
+    title = {DOM-based Content Extraction of HTML Documents},
+    year = {2003}
+}
+
+@PhdThesis{Gott:ContentExtraction,
+  author = 	 {Thomas Gottron},
+  title = 	 {Content Extraction: Identifying the Main content in HTML Documents},
+  school = 	 {Johannes Gutenberg-Universität},
+  year = 	 {2008},
+  OPTaddress = 	 {Mainz, Germany},
+}
+
+@TechReport{zhang:FinAnalysisUsingNewsPaperSurvey,
+  author = 	 {Wenbin Zhang and Steven Skiena},
+  title = 	 {Financial Analysis Using News Data},
+  institution =  {Department of Computer Science, Stony Brook University},
+  year = 	 {2008},
+  address = 	 {Stony Brook, NY 11794-4400 USA}
+}
+
+@book{chambers:GuidetoS,
+    abstract = {{Here is a thorough and authoritative guide to the latest version of the S language and to its programming environment, the premier software platform for computing with data. Programming with Data describes a new and greatly extended version of S, and is written by the chief designer of the language. The book is a guide to the complete programming process, starting from simple, interactive use and continuing through ambitious software projects.S is designed for computing with data - for any project in which organizing, visualizing, summarizing, or modeling data is a central concern. Its focus is on the needs of the programmer/user, and its goal is "to turn ideas into software, quickly and faithfully." S is a functional, object-based language with a huge library of functions for all aspects of computing with data. Its long and enthusiastic use in statistics and applied fields has also led to many valuable libraries of user-written functions.The new version of S provides a powerful class/method structure, new techniques to deal with large objects, extended interfaces to other languages and files, object-based documentation compatible with HTML, and powerful new interactive programming techniques. This version of S underlies the S-Plus system, versions 5.0 and higher.John Chambers has been a member of the technical staff in research at Bell Laboratories since 1966. In 1977, he became the first statistician to be named a Bell Labs Fellow, cited for "pioneering contributions to the field of statistical computing." His research has touched on nearly all aspects of computing with data, but he is best known for the design of the S language. He is the author or co-author of seven books on S, on computational methods, and on graphical methods; and he is a Fellow of the American Statistical Association and the American Association for the Advancement of Science.}},
+    author = {Chambers, John M.},
+    citeulike-article-id = {699469},
+    citeulike-linkout-0 = {http://www.amazon.ca/exec/obidos/redirect?tag=citeulike09-20\&amp;path=ASIN/0387985034},
+    citeulike-linkout-1 = {http://www.amazon.de/exec/obidos/redirect?tag=citeulike01-21\&amp;path=ASIN/0387985034},
+    citeulike-linkout-2 = {http://www.amazon.fr/exec/obidos/redirect?tag=citeulike06-21\&amp;path=ASIN/0387985034},
+    citeulike-linkout-3 = {http://www.amazon.jp/exec/obidos/ASIN/0387985034},
+    citeulike-linkout-4 = {http://www.amazon.co.uk/exec/obidos/ASIN/0387985034/citeulike00-21},
+    citeulike-linkout-5 = {http://www.amazon.com/exec/obidos/redirect?tag=citeulike07-20\&path=ASIN/0387985034},
+    citeulike-linkout-6 = {http://www.worldcat.org/isbn/0387985034},
+    citeulike-linkout-7 = {http://books.google.com/books?vid=ISBN0387985034},
+    citeulike-linkout-8 = {http://www.amazon.com/gp/search?keywords=0387985034\&index=books\&linkCode=qs},
+    citeulike-linkout-9 = {http://www.librarything.com/isbn/0387985034},
+    day = {19},
+    edition = {Corrected},
+    howpublished = {Paperback},
+    isbn = {0387985034},
+    month = jun,
+    posted-at = {2006-06-17 23:54:54},
+    priority = {2},
+    publisher = {Springer},
+    title = {{Programming with Data: A Guide to the S Language}},
+    url = {http://www.worldcat.org/isbn/0387985034},
+    year = {1998}
+}
+
+@article{R:Ihaka+Gentleman:1996,
+  author = {Ross Ihaka and Robert Gentleman},
+  title = {R: A Language for Data Analysis and Graphics},
+  journal = {Journal of Computational and Graphical Statistics},
+  year = 1996,
+  volume = 5,
+  number = 3,
+  pages = {299--314},
+  url = {http://www.amstat.org/publications/jcgs/}
+}
+
+
+
+@article{ tetlock:MediaStockMarket,
+  type={Accepted Paper Series},
+  title={{Giving Content to Investor Sentiment: The Role of Media in the Stock Market}},
+  author={Tetlock, Paul C. },
+  journal={Journal of Finance},
+  publisher={SSRN},
+  year = {2007},
+  doi={10.2139/ssrn.685145},
+  keywords={Investor sentiment, financial news media, content analysis, efficient markets},
+  location={http://ssrn.com/paper=685145},
+  language={English}
+}
+
+@inproceedings{Godbole+Srinivasaiah+Skiena:07a,
+  author = {Namrata Godbole and Manjunath Srinivasaiah and Steven Skiena},
+  booktitle = {Proceedings of the International Conference on Weblogs and Social
+	Media (ICWSM)},
+  interhash = {db9c97e105d4387821aa7b404cbeb04a},
+  intrahash = {b67e0f2a90a04960e14ea8453134ecb5},
+  title = {Large-Scale Sentiment Analysis for News and Blogs},
+  year = 2007,
+  keywords = {analysis mining opinion sentiment},
+  added-at = {2009-03-18T13:40:43.000+0100},
+  biburl = {http://www.bibsonomy.org/bibtex/2b67e0f2a90a04960e14ea8453134ecb5/om}
+}
+
+@PHDTHESIS{Gottron:2008e,
+  author = {Thomas Gottron},
+  title = {Content Extraction: Identifying the Main Content in HTML Documents},
+  school = {Johannes Gutenberg-University, Mainz},
+  year = {2008},
+  owner = {gotti},
+  timestamp = {2009.04.24}
+}
+
+
+@inproceedings{DBLP:conf/icwsm/ZhangS10,
+  author    = {Wenbin Zhang and
+               Steven Skiena},
+  title     = {Trading Strategies to Exploit Blog and News Sentiment},
+  booktitle = {ICWSM},
+  year      = {2010},
+  ee        = {http://www.aaai.org/ocs/index.php/ICWSM/ICWSM10/paper/view/1529},
+  crossref  = {DBLP:conf/icwsm/2010},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@proceedings{DBLP:conf/icwsm/2010,
+  editor    = {William W. Cohen and
+               Samuel Gosling},
+  title     = {Proceedings of the Fourth International Conference on Weblogs
+               and Social Media, ICWSM 2010, Washington, DC, USA, May 23-26,
+               2010},
+  booktitle = {ICWSM},
+  publisher = {The AAAI Press},
+  year      = {2010},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@Book{NLTK,
+  author =	 {Steven Bird and Ewan Klein and Edward Loper},
+  title = 	 {{How people learn: Brain, mind, experience, and school}},
+  publisher = 	 {O'Reilly Media},
+  year = 	 2009,
+  address =	 {1005 Gravenstein Highwsay North, Sebastopol, CA 95472},
+  edition =	 {1},
+  url =		 {http://www.nltk.org/book}
+}
+
+@MISC{Fielding96t.berners-lee,
+    author = {Tim Berners-Lee and R. Fielding and J. Gettys Dec and J. C. Mogul},
+    title = {T. Berners-Lee, MIT/LCS},
+    year = {1996}
+}
+
+
+@MISC{GeneralInquirer,
+    author = {Philip Stone},
+    title = {The General Inquirer Home Page},
+    year = {2006}
+}
+
+
+
+@webpage{Reuters:Newsscope,
+  author = "Thomson Reuters",
+  title = "Newsscope",
+  url = "http://thomsonreuters.com/products_services/financial/financial_products/event_driven_trading/newsscope_archive",
+  lastchecked = {\today}
+}
+
+@webpage{RPack:RCurl,
+  author = "Duncan Temple Lang",
+  title = "The RCurl Package",
+  url = "http://www.omegahat.org/RCurl/",
+  lastchecked = {\today}
+}
+
+@webpage{RPack:PerformanceAnalytics,
+  author = "Peter Carl and Brian G. Peterson",
+  title = "PerformanceAnalytics: Econometric tools for performance and risk analysis",
+  url = "http://cran.r-project.org/web/packages/PerformanceAnalytics/",
+  year = 2010,
+  month = 9,
+  day = 15,
+  lastchecked = {\today}
+}
+
+  @Book{fPortfolio,
+    title = {Portfolio Optimization with R/Rmetrics},
+    author = {Diethelm Wuertz and Yohan Chalabi and William Chen and
+      Andrew Ellis},
+    year = {2010},
+    month = {April},
+    editor = {{Wuertz} and {Diethelm} and {Hanf} and {Martin}},
+    publisher = {Rmetrics Association & Finance Online,
+      www.rmetrics.org},
+    note = {R package version 2130.80},
+  }
+
+  @Book{Achelis:TechAnal,
+    title = {Technical Analysis from A to Z},
+    author = {Steven Achelis},
+    year = {2000},
+    month = {October},
+    publisher = {McGraw-Hill; 2 edition},
+    isbn = {0071363483}
+  }
+  
+@webpage{hedgefundtwitter,
+  author = "Jack Jordan",
+  title = "Hedge Fund Will Track Twitter to Predict Stock Moves",
+  url = "http://www.bloomberg.com/news/2010-12-22/hedge-fund-will-track-twitter-to-predict-stockmarket-movements.html",
+  year = 2010,
+  month = 12,
+  day = 22,
+  lastchecked = {\today}
+}
+
+@webpage{universalfeedparser,
+  author = "Mark Pilgrim",
+  title = "Universal Feed Parser",
+  url = "http://feedparser.org/docs/",
+  year = 2006,
+  month = 01,
+  day = 10,
+  lastchecked = {\today}
+}
+
+@webpage{simplejson,
+  author = "Bob Ippolito",
+  title = "simplejson 2.1.5",
+  url = "http://pypi.python.org/pypi/simplejson/",
+  year = 2011,
+  month = 04,
+  day = 17,
+  lastchecked = {\today}
+}
+
+@book{oliphant06guide,
+    author = {Oliphant, T. E.},
+    booktitle = {Guide to NumPy},
+    citeulike-article-id = {2515650},
+    posted-at = {2008-03-11 16:41:13},
+    priority = {2},
+    publisher = {Trelgol Publishing},
+    title = {{Guide to NumPy}},
+    year = {2006}
+}
+
+@article{matplotlib,
+    abstract = {{Matplotlib is a 2D graphics package for Python for application development, interactive scripting, and publication-quality image generation across user interfaces and operating systems.}},
+    address = {Los Alamitos, CA, USA},
+    author = {Hunter, John D.},
+    booktitle = {Computing in Science \& Engineering},
+    citeulike-article-id = {2878517},
+    citeulike-linkout-0 = {http://doi.ieeecomputersociety.org/10.1109/MCSE.2007.55},
+    citeulike-linkout-1 = {http://dx.doi.org/10.1109/MCSE.2007.55},
+    citeulike-linkout-2 = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4160265},
+    doi = {10.1109/MCSE.2007.55},
+    issn = {1521-9615},
+    journal = {Computing in Science and Engineering},
+    keywords = {evaluation, python},
+    number = {3},
+    pages = {90--95},
+    posted-at = {2009-03-26 14:48:42},
+    priority = {2},
+    publisher = {IEEE Computer Society},
+    title = {{Matplotlib: A 2D Graphics Environment}},
+    url = {http://dx.doi.org/10.1109/MCSE.2007.55},
+    volume = {9},
+    year = {2007}
+}
+
+@inproceedings{boilerpipe,
+    abstract = {{In addition to the actual content Web pages consist of navigational elements, templates, and advertisements. This boilerplate text typically is not related to the main content, may deteriorate search precision and thus needs to be detected properly. In this paper, we analyze a small set of shallow text features for classifying the individual text elements in a Web page. We compare the approach to complex, state-of-the-art techniques and show that competitive accuracy can be achieved, at almost no cost. Moreover, we derive a simple and plausible stochastic model for describing the boilerplate creation process. With the help of our model, we also quantify the impact of boilerplate removal to retrieval performance and show significant improvements over the baseline. Finally, we extend the principled approach by straight-forward heuristics, achieving a remarkable detection accuracy.}},
+    address = {New York, NY, USA},
+    author = {Kohlsch\"{u}tter, Christian and Fankhauser, Peter and Nejdl, Wolfgang},
+    booktitle = {Proceedings of the third ACM international conference on Web search and data mining},
+    citeulike-article-id = {8241255},
+    citeulike-linkout-0 = {http://portal.acm.org/citation.cfm?id=1718542},
+    citeulike-linkout-1 = {http://dx.doi.org/10.1145/1718487.1718542},
+    doi = {10.1145/1718487.1718542},
+    isbn = {978-1-60558-889-6},
+    location = {New York, New York, USA},
+    pages = {441--450},
+    posted-at = {2010-11-23 07:02:43},
+    priority = {2},
+    publisher = {ACM},
+    series = {WSDM '10},
+    title = {{Boilerplate detection using shallow text features}},
+    url = {http://dx.doi.org/10.1145/1718487.1718542},
+    year = {2010}
+}
+
+
+
+
+@misc{scipy,
+    author = {Jones, Eric and Oliphant, Travis and Peterson, Pearu and Others},
+    citeulike-article-id = {3398487},
+    citeulike-linkout-0 = {http://www.scipy.org/},
+    keywords = {python, scipy},
+    posted-at = {2009-07-23 14:10:37},
+    priority = {2},
+    title = {{SciPy: Open source scientific tools for Python}},
+    url = {http://www.scipy.org/},
+    year = {2001}
+}
+
+@misc{mlpy,
+    author = {Davide Albanese and Giuseppe Jurman and Roberto Visintainer},
+    title = {{mlpy Documentation}},
+    url = {https://mlpy.fbk.eu/data/mlpy.pdf},
+    year = {2010}
+}
+
+
+
+@misc{BehaveIntro,
+  author = "Martin Swell",
+  title = "Introduction to Behavioural Finance",
+  url = "http://www.behaviouralfinance.net/behavioural-finance.pdf",
+  year = 2010,
+  month = 4,
+  day = 14,
+  lastchecked = {\today}
+}
+
+@book{Pareto:Homo,
+  address = {Padova},
+  author = {Vilfredo Pareto},
+  booktitle = {Manuale Di Economia Politica. Con Una Introduzione Alla Scienza Sociale},
+  interhash = {a91d7162f83db6f54698ade6de04f0bb},
+  intrahash = {a4fda646bd4bf1e8d58442b790126bb1},
+  pages = {404 p.},
+  publisher = {CEDAM},
+  title = {Manuale di economia politica. Con una introduzione alla scienza sociale (1974)},
+  year = {1906},
+  date-modified = {2010-02-28 21:15:22 -0500},
+  keywords = {economic economy political},
+  added-at = {2010-03-02T17:25:53.000+0100},
+  biburl = {http://www.bibsonomy.org/bibtex/2a4fda646bd4bf1e8d58442b790126bb1/jrennstich},
+  language = {Italian}
+}
+
+@InProceedings{Pang+Lee+Vaithyanathan:02a,
+  author =       {Bo Pang and Lillian Lee and Shivakumar Vaithyanathan},
+  title =        {Thumbs up?  {Sentiment} Classification using Machine Learning Techniques},
+  booktitle =    "Proceedings of the 2002 Conference on Empirical Methods in Natural
+Language Processing (EMNLP)",
+  pages = {79--86},
+  year =         2002
+}
+
+@InProceedings{Cun02b,
+  author =   {H. Cunningham and D. Maynard and K. Bontcheva and V. Tablan},
+  title =    {{GATE: A framework and graphical development environment for robust NLP tools and applications}},
+  booktitle =    {Proceedings of the 40th Anniversary Meeting of the
+                  Association for Computational Linguistics},
+  year =     2002
+}
+
+@InProceedings{Pang+Lee:04a,
+  author =       {Bo Pang and Lillian Lee},
+  title =        {A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts},
+  booktitle =    "Proceedings of the ACL",
+  year =         2004
+}
+
+
+
+@inproceedings{DBLP:conf/tools/Rossum97,
+  author    = {{Guido van Rossum}},
+  title     = {A Tour of the Python Language},
+  booktitle = {TOOLS (23)},
+  year      = {1997},
+  pages     = {370},
+  ee        = {http://doi.ieeecomputersociety.org/10.1109/TOOLS.1997.10001},
+  crossref  = {DBLP:conf/tools/23-1997},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+
+
+
+@article{penntreebank,
+    abstract = {{this paper, we review our experience with constructing one such large annotated
+corpus--the Penn Treebank, a corpus consisting of over 4.5 million words of American
+English. During the first three-year phase of the Penn Treebank Project (1989-1992), this
+corpus has been annotated for part-of-speech (POS) information. In addition, over half
+
+of it has been annotated for skeletal syntactic structure. These materials are available
+to members of the Linguistic Data Consortium; for details, see...}},
+    author = {Marcus, Mitchell P. and Santorini, Beatrice and Marcinkiewicz, Mary A.},
+    citeulike-article-id = {1205174},
+    citeulike-linkout-0 = {http://acl.ldc.upenn.edu/J/J93/J93-2004.pdf},
+    citeulike-linkout-1 = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.14.9706},
+    journal = {Computational Linguistics},
+    keywords = {annotation, corpora, english, nlp, penn-treebank},
+    number = {2},
+    pages = {313--330},
+    posted-at = {2009-05-18 10:02:58},
+    priority = {2},
+    title = {{Building a Large Annotated Corpus of English: The Penn Treebank}},
+    url = {http://acl.ldc.upenn.edu/J/J93/J93-2004.pdf},
+    volume = {19},
+    year = {1994}
+}
+
+
+
+@misc{miningpeanut,
+    abstract = {{The web contains a wealth of product reviews, but sifting through
+them is a daunting task. Ideally, an opinion mining tool would process
+a set of search results for a given item, generating a list of
+product attributes (quality, features, etc.) and aggregating opinions
+about each of them (poor, mixed, good). We begin by identifying
+the unique properties of this problem and develop a method
+for automatically distinguishing between positive and negative reviews.
+Our classifier draws on...}},
+    author = {Dave, D. and Lawrence, S.},
+    citeulike-article-id = {899598},
+    citeulike-linkout-0 = {http://citeseer.ist.psu.edu/dave03mining.html},
+    citeulike-linkout-1 = {http://citeseer.lcs.mit.edu/dave03mining.html},
+    citeulike-linkout-2 = {http://citeseer.ifi.unizh.ch/dave03mining.html},
+    citeulike-linkout-3 = {http://citeseer.comp.nus.edu.sg/dave03mining.html},
+    keywords = {blogs, lecture-8, social, web, web\_20},
+    posted-at = {2008-02-25 21:56:38},
+    priority = {2},
+    year = 2003,
+    title = {{Mining the peanut gallery: opinion extraction and semantic classification of product reviews}},
+    url = {http://citeseer.ist.psu.edu/dave03mining.html}
+}
+
+
+
+@book{webdatamining,
+    abstract = {{<P>Web mining aims to discover useful information and knowledge from the Web hyperlink structure, page contents, and usage data. Although Web mining uses many conventional data mining techniques, it is not purely an application of traditional data mining due to the semistructured and unstructured nature of the Web data and its heterogeneity. It has also developed many of its own algorithms and techniques.</P> <P>Liu has written a comprehensive text on Web data mining. Key topics of structure mining, content mining, and usage mining are covered both in breadth and in depth. His book brings together all the essential concepts and algorithms from related areas such as data mining, machine learning, and text processing to form an authoritative and coherent text. </P> <P>The book offers a rich blend of theory and practice, addressing seminal research ideas, as well as examining the technology from a practical point of view. It is suitable for students, researchers and practitioners interested in Web mining both as a learning text and a reference book. Lecturers can readily use it for classes on data mining, Web mining, and Web search. Additional teaching materials such as lecture slides, datasets, and implemented algorithms are available online.</P>}},
+    author = {Liu, Bing},
+    citeulike-article-id = {975464},
+    citeulike-linkout-0 = {http://www.amazon.ca/exec/obidos/redirect?tag=citeulike09-20\&amp;path=ASIN/3540378812},
+    citeulike-linkout-1 = {http://www.amazon.de/exec/obidos/redirect?tag=citeulike01-21\&amp;path=ASIN/3540378812},
+    citeulike-linkout-2 = {http://www.amazon.fr/exec/obidos/redirect?tag=citeulike06-21\&amp;path=ASIN/3540378812},
+    citeulike-linkout-3 = {http://www.amazon.jp/exec/obidos/ASIN/3540378812},
+    citeulike-linkout-4 = {http://www.amazon.co.uk/exec/obidos/ASIN/3540378812/citeulike00-21},
+    citeulike-linkout-5 = {http://www.amazon.com/exec/obidos/redirect?tag=citeulike07-20\&path=ASIN/3540378812},
+    citeulike-linkout-6 = {http://www.worldcat.org/isbn/3540378812},
+    citeulike-linkout-7 = {http://books.google.com/books?vid=ISBN3540378812},
+    citeulike-linkout-8 = {http://www.amazon.com/gp/search?keywords=3540378812\&index=books\&linkCode=qs},
+    citeulike-linkout-9 = {http://www.librarything.com/isbn/3540378812},
+    day = {21},
+    edition = {1st ed. 2007. Corr. 2nd printing},
+    howpublished = {Hardcover},
+    isbn = {3540378812},
+    keywords = {data-mining, machine-learning},
+    month = jan,
+    posted-at = {2007-10-02 19:55:48},
+    priority = {2},
+    publisher = {Springer},
+    title = {{Web Data Mining: Exploring Hyperlinks, Contents, and Usage Data (Data-Centric Systems and Applications)}},
+    url = {http://www.worldcat.org/isbn/3540378812},
+    year = {2009}
+}
+
+
+
+
+@webpage{opennlp,
+  author = "Apache, Incubator",
+  title = "openNLP",
+  url = "http://incubator.apache.org/opennlp/",
+  year = 2011,
+  month = 01,
+  day = 29,
+  lastchecked = {\today}
+}
+
+@webpage{stanfordpos,
+  author = "Stanford NLP, (The Stanford Natural Language Processing Group)",
+  title = "Stanford Log-linear Part-Of-Speech Tagger",
+  url = "http://nlp.stanford.edu/software/tagger.shtml",
+  year = 2010,
+  month = 05,
+  day = 21,
+  lastchecked = {\today}
+}
+
+@inproceedings{sentimentanalysissvm,
+    address = {Barcelona, Spain},
+    author = {Mullen, Tony and Collier, Nigel},
+    booktitle = {Proceedings of EMNLP 2004},
+    citeulike-article-id = {4742195},
+    citeulike-linkout-0 = {http://www.aclweb.org/anthology-new/W/W04/W04-3253.bib},
+    citeulike-linkout-1 = {http://www.aclweb.org/anthology-new/W/W04/W04-3253.pdf},
+    editor = {Lin, Dekang and Wu, Dekai},
+    keywords = {detection, different, learning, machine, pmi, sentiment, sources, svm},
+    month = jul,
+    pages = {412--418},
+    posted-at = {2009-06-04 09:21:18},
+    priority = {0},
+    publisher = {Association for Computational Linguistics},
+    title = {{Sentiment Analysis using Support Vector Machines with Diverse Information Sources}},
+    url = {http://www.aclweb.org/anthology-new/W/W04/W04-3253.bib},
+    year = {2004}
+}
+
+
+@webpage{moviereviews,
+  author = "Pang, Bo and Lee, Lillian",
+  title = "Movie Review Data",
+  url = "http://www.cs.cornell.edu/people/pabo/movie-review-data/",
+  year = 2009,
+  month = 10,
+  day = 1,
+  lastchecked = {\today}
+}
+
+@webpage{quantly:lingfranc,
+  author = "Quantivity",
+  title = "Algorithmic Lingua Franca",
+  url = "http://quantivity.wordpress.com/2010/01/02/algorithmic-lingua-franca/",
+  year = 2010,
+  month = 1,
+  day = 2,
+  lastchecked = {\today}
+}
+
+@webpage{RPack:snippets,
+  author = "Simon Urbanek",
+  title = "Code snippets, mostly visualization-related",
+  url = "http://www.rforge.net/snippets/",
+  year = 2011,
+  month = 2,
+  day = 15,
+  lastchecked = {\today}
+}
+
+
+
+
+@webpage{RMetrics,
+  author = "Rmetrics, Association",
+  title = "Rmetrics The premier open source software solution for teaching and training quantitative finance",
+  url = "https://www.rmetrics.org/",
+  year = 2011,
+  month = 4,
+  day = 6,
+  lastchecked = {\today}
+}
+
+@MISC{RPack:XML,
+  author = "Duncan Temple Lang",
+  title = "XML: Tools for parsing and generating XML within R and S-Plus",
+  url = "http://www.omegahat.org/RSXML",
+  lastchecked = {\today}
+}
+
+
+@MISC{RPack:tm,
+  author = "Ingo Feinerer",
+  title = "tm: Text Mining Package",
+  url = "http://tm.r-forge.r-project.org/",
+  lastchecked = {\today}
+}
+
+@MISC{RPack:xts,
+  author = "Jeffrey A. Ryan and Josh M. Ulrich",
+  title = "xts: Extensible Time Series",
+  url = "http://r-forge.r-project.org/projects/xts/",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@MISC{RPack:TTR,
+  author = "Joshua Ulrich",
+  title = "TTR: Technical Trading Rules",
+  url = "http://cran.at.r-project.org/web/packages/TTR/TTR.pdf",
+  year = 2010,
+  lastchecked = {\today}
+}
+
+@MISC{RPack:quantmod,
+  author = "Jeffrey A. Ryan",
+  title = "quantmod: Quantitative Financial Modelling Framework",
+  year = {2009},
+  url = "http://www.quantmod.com/",
+  lastchecked = {\today}
+}
+
+@MISC{RPack:slam,
+  author = "Kurt Hornik and David Meyer and Christian Buchta",
+  title = "slam: Sparse Lightweight Arrays and Matrices",
+  url = "http://cran.at.r-project.org/web/packages/slam/slam.pdf",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@MISC{RPack:zoo,
+  author = "Achim Zeileis and Gabor Grothendieck and Felix Andrews",
+  title = "zoo: Z's ordered observations",
+  url = "http://r-forge.r-project.org/projects/zoo/",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@MISC{GoogleNewsArchive,
+  author = "Google",
+  title = "Google News Archive Search",
+  url = "http://news.google.com/archivesearch",
+  lastchecked = {\today}
+}
+
+@MISC{XML,
+  author = "W3C",
+  title = "Extensible Markup Language (XML) 1.0 (Fifth Edition)",
+  url = "http://www.w3.org/TR/REC-xml/",
+  year = 2008,
+  month = 11,
+  day = 26,
+  lastchecked = {\today}
+}
+
+@MISC{JavaScript,
+  author = "Mozilla",
+  title = "JavaScript",
+  url = "https://developer.mozilla.org/en/JavaScript#Documentation",
+  year = 2011,
+  lastchecked = {\today}
+}
+
+@MISC{RSS,
+  author = "RSS Advisory Board",
+  title = "RSS 2.0 Specification",
+  url = "http://www.rssboard.org/rss-specification",
+  year = 2002,
+  lastchecked = {\today}
+}
+
+@MISC{ATOM,
+  author = "IETF",
+  title = "The Atom Syndication Format",
+  url = "http://tools.ietf.org/html/rfc4287",
+  year = 2005,
+  lastchecked = {\today}
+}
+
+@MISC{JSON,
+  author = "Douglas Crockford",
+  title = "Introducing JSON",
+  url = "http://www.json.org",
+  year = 2002,
+  lastchecked = {\today}
+}
+
+
+@MISC{GoogleFinance,
+  author = "Google",
+  title = "Google Finance",
+  url = "http://www.google.com/finance",
+  lastchecked = {\today}
+}
+
+@MISC{YahooFinance,
+  author = "Yahoo!",
+  title = "Yahoo! Finance",
+  url = "http://finance.yahoo.com/",
+  lastchecked = {\today}
+}
+
+@mastersthesis{Hariharan04NewsMining,
+    author = "Gurushyam Hariharan",
+    title = "News Mining Agent for Automated Stock Trading",
+    school = "University of Texas, Austin",
+    year = "2004"}
+
+@book{hadoop,
+    abstract = {{Hadoop: The Definitive Guide helps you harness the power of your data. Ideal
+for processing large datasets, the Apache Hadoop framework is an open source
+implementation of the MapReduce algorithm on which Google built its empire.
+This comprehensive resource demonstrates how to use Hadoop to build reliable,
+scalable, distributed systems: programmers will find details for analyzing
+large datasets, and administrators will learn how to set up and run Hadoop
+clusters. Complete with case studies that illustrate how Hadoop solves
+specific problems, this book helps you:
+
+Use the Hadoop Distributed File System (HDFS) for storing large datasets, and
+run distributed computations over those datasets using MapReduce Become
+familiar with Hadoop's data and I/O building blocks for compression, data
+integrity, serialization, and persistence Discover common pitfalls and
+advanced features for writing real-world MapReduce programs Design, build, and
+administer a dedicated Hadoop cluster, or run Hadoop in the cloud Use Pig, a
+high-level query language for large-scale data processing Take advantage of
+HBase, Hadoop's database for structured and semi-structured data Learn
+ZooKeeper, a toolkit of coordination primitives for building distributed
+systems
+
+If you have lots of data -- whether it's gigabytes or petabytes -- Hadoop is
+the perfect solution. Hadoop: The Definitive Guide is the most thorough book
+available on the subject. "Now you have the opportunity to learn about Hadoop
+from a master-not only of the technology, but also of common sense and plain
+talk." -- Doug Cutting, Hadoop Founder, Yahoo!}},
+    author = {White, Tom},
+    citeulike-article-id = {4882841},
+    citeulike-linkout-0 = {http://www.amazon.ca/exec/obidos/redirect?tag=citeulike09-20\&amp;path=ASIN/0596521979},
+    citeulike-linkout-1 = {http://www.amazon.de/exec/obidos/redirect?tag=citeulike01-21\&amp;path=ASIN/0596521979},
+    citeulike-linkout-2 = {http://www.amazon.fr/exec/obidos/redirect?tag=citeulike06-21\&amp;path=ASIN/0596521979},
+    citeulike-linkout-3 = {http://www.amazon.jp/exec/obidos/ASIN/0596521979},
+    citeulike-linkout-4 = {http://www.amazon.co.uk/exec/obidos/ASIN/0596521979/citeulike00-21},
+    citeulike-linkout-5 = {http://www.amazon.com/exec/obidos/redirect?tag=citeulike07-20\&path=ASIN/0596521979},
+    citeulike-linkout-6 = {http://www.worldcat.org/isbn/0596521979},
+    citeulike-linkout-7 = {http://books.google.com/books?vid=ISBN0596521979},
+    citeulike-linkout-8 = {http://www.amazon.com/gp/search?keywords=0596521979\&index=books\&linkCode=qs},
+    citeulike-linkout-9 = {http://www.librarything.com/isbn/0596521979},
+    day = {05},
+    edition = {1},
+    howpublished = {Paperback},
+    isbn = {0596521979},
+    month = jun,
+    posted-at = {2009-06-20 17:40:53},
+    priority = {2},
+    publisher = {O'Reilly Media},
+    title = {{Hadoop: The Definitive Guide}},
+    url = {http://www.worldcat.org/isbn/0596521979},
+    year = {2009}
+}
+
+    

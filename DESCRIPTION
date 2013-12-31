@@ -1,0 +1,33 @@
+Package: tm.plugin.webmining
+Imports:
+    RJSONIO
+License: GPL-3
+Title: Retrieve structured, textual data from various web sources
+Authors@R: c(person("Mario", "Annau", role = c("aut", "cre"),
+    email = "mario.annau@gmail.com"))
+Maintainer: Mario Annau <mario.annau@gmail.com> 
+Description: tm.plugin.webmining facilitates text retrieval from feed
+    formats like XML (RSS, ATOM) and JSON. Also direct retrieval from
+    HTML is supported. As most (news) feeds only incorporate small
+    fractions of the original text tm.plugin.webmining even retrieves
+    and extracts the text of the original text source.
+Version: 0.9
+Date: 2013-12-30
+Depends:
+    tm,
+    RCurl,
+    XML,
+    boilerpipeR
+Collate:
+    'corpus.R'
+    'feedquery.R'
+    'getLinkContent.R'
+    'reader.R'
+    'source.R'
+    'tm.plugin.webmining-package.R'
+    'trimWhiteSpaces.R'
+    'extract.R'
+    'auth.google.reader.R'
+    'transform.R'
+    'parser.R'
+    'getURL.R'
