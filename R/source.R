@@ -13,8 +13,8 @@
 #' @param curlOpts a named list or CURLOptions object identifying the curl options for the handle. Type \code{listCurlOptions()} for all Curl options available.
 #' @return WebSource
 #' @export
-#' @importFrom XML getNodeSet
-#' @importFrom XML xmlValue
+#' @importFrom XML getNodeSet xmlValue
+#' @importFrom tm Source
 #' @importFrom RCurl curlOptions
 WebSource <- function(feedurls, class = "WebXMLSource", parser, encoding = "UTF-8", vectorized = FALSE,
 		curlOpts = curlOptions(	followlocation = TRUE, 
@@ -28,11 +28,14 @@ WebSource <- function(feedurls, class = "WebXMLSource", parser, encoding = "UTF-
 	content_raw <- getURL(feedurls, .opts = curlOpts)
 	
 	content_parsed <- unlist(lapply(content_raw, parser), recursive = FALSE)
-	#FIXME: the slooow approach
-	#content_parsed <- unlist(lapply(feedurls, parser), recursive = FALSE)
-	
 	# generate source object
-	s <- tm:::.Source(NULL, encoding, length(content_parsed), FALSE, NULL, 0, vectorized, class = class)
+	s <- Source(
+          encoding = encoding, 
+					length = length(content_parsed), 
+					names = NA_character_, 
+					position = 0, 
+					vectorized = FALSE, 
+					class = class)
 	
 	s$Content <- content_parsed
 	s$Feedurls <- feedurls
@@ -170,10 +173,8 @@ YahooFinanceSource <- function(query, params =
 #' \dontrun{
 #' corpus <- Corpus(GoogleBlogSearchSource("Microsoft"))
 #' }
-#' @importFrom XML xmlInternalTreeParse
-#' @importFrom XML xpathSApply
-#' @importFrom XML getNodeSet
-#' @importFrom XML xmlValue
+#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
+#' @importFrom boilerpipeR DefaultExtractor
 #' @aliases readGoogleBlogSearch
 GoogleBlogSearchSource <- function(query, params = 
 				list(	hl= 'en', 
@@ -216,10 +217,7 @@ GoogleBlogSearchSource <- function(query, params =
 #' \dontrun{
 #' corpus <- Corpus(GoogleNewsSource("Microsoft"))
 #' }
-#' @importFrom XML xmlInternalTreeParse
-#' @importFrom XML xpathSApply
-#' @importFrom XML getNodeSet
-#' @importFrom XML xmlValue
+#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
 GoogleNewsSource <- function(query, params = 
 				list(	hl= 'en', 
 						q = query, 
@@ -259,10 +257,7 @@ GoogleNewsSource <- function(query, params =
 #' \dontrun{
 #' corpus <- Corpus(ReutersNewsSource("businessNews"))
 #' }
-#' @importFrom XML xmlInternalTreeParse
-#' @importFrom XML xpathSApply
-#' @importFrom XML getNodeSet
-#' @importFrom XML xmlValue
+#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
 #' @aliases readReutersNews
 ReutersNewsSource <- function(query = 'businessNews', ...){
 	feed <- "http://feeds.reuters.com/reuters"
@@ -305,48 +300,47 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 #' \dontrun{
 #' corpus <- Corpus(TwitterSource("Microsoft"))
 #' }
-#' @importFrom XML xmlInternalTreeParse
-#' @importFrom XML xpathSApply
-#' @importFrom XML getNodeSet
-#' @importFrom XML xmlValue
+#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
+#' @importFrom tm tm_map
 #' @aliases readTwitter
 TwitterSource <- function(query, n = 1500, params = 
 				list(lang = 'en'),...){
-	feed <- "http://search.twitter.com/search.atom"
-
-	if(is.null(params[["q"]])) params[["q"]] <- query
-	if(is.null(params[["rpp"]])) params[["rpp"]] <- 100
-	if(is.null(params[["page"]])) params[["page"]] <- seq(1,ceiling(n/params[["rpp"]]), by = 1)
-
-	parser <- function(cr){
-		namespaces = c(	"google" = "http://base.google.com/ns/1.0", 
-				"openSearch" = "http://a9.com/-/spec/opensearch/1.1/",  
-				"georss"="http://www.georss.org/georss", 
-				"a" = "http://www.w3.org/2005/Atom", 
-				"twitter"="http://api.twitter.com/")
-		
-		tree <- parse(cr, type = "XML")
-		nodes <- xpathSApply(tree, path = "///a:entry", namespaces = namespaces)
-		#to surpress namespace warnings while parsing
-		xmlns1 <- lapply(nodes, newXMLNamespace, "http://api.twitter.com/", "twitter")
-		xmlns2 <- lapply(nodes, newXMLNamespace, "http://www.georss.org/georss", "georss")
-		nodes
-	}
-	
-	fq <- feedquery(feed, params)
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readTwitter
-	#TODO: error with extractHTMLStrip, need tryCatch or whatever
-	enc <- switch(.Platform$OS.type,
-						unix = "UTF-8", 
-						windows = "latin1")
-			
-	ws$PostFUN <- function(x){
-		x <- tm_map(x, encloseHTML)
-		tm_map(x, extract, extractor = extractHTMLStrip, encoding = enc)
-	}
-	
-	ws
+#	feed <- "http://search.twitter.com/search.atom"
+#
+#	if(is.null(params[["q"]])) params[["q"]] <- query
+#	if(is.null(params[["rpp"]])) params[["rpp"]] <- 100
+#	if(is.null(params[["page"]])) params[["page"]] <- seq(1,ceiling(n/params[["rpp"]]), by = 1)
+#
+#	parser <- function(cr){
+#		namespaces = c(	"google" = "http://base.google.com/ns/1.0", 
+#				"openSearch" = "http://a9.com/-/spec/opensearch/1.1/",  
+#				"georss"="http://www.georss.org/georss", 
+#				"a" = "http://www.w3.org/2005/Atom", 
+#				"twitter"="http://api.twitter.com/")
+#		
+#		tree <- parse(cr, type = "XML")
+#		nodes <- xpathSApply(tree, path = "///a:entry", namespaces = namespaces)
+#		#to surpress namespace warnings while parsing
+#		xmlns1 <- lapply(nodes, newXMLNamespace, "http://api.twitter.com/", "twitter")
+#		xmlns2 <- lapply(nodes, newXMLNamespace, "http://www.georss.org/georss", "georss")
+#		nodes
+#	}
+#	
+#	fq <- feedquery(feed, params)
+#	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
+#	ws$DefaultReader <- readTwitter
+#	#TODO: error with extractHTMLStrip, need tryCatch or whatever
+#	enc <- switch(.Platform$OS.type,
+#						unix = "UTF-8", 
+#						windows = "latin1")
+#			
+#	ws$PostFUN <- function(x){
+#		x <- tm_map(x, encloseHTML)
+#		tm_map(x, extract, extractor = extractHTMLStrip, encoding = enc)
+#	}
+#	
+#	ws
+  stop("Not implemented yet")
 }
 
 
@@ -413,6 +407,7 @@ YahooNewsSource <- function(query, params =
 #' }
 #' @export
 #' @importFrom RJSONIO fromJSON
+#' @importFrom boilerpipeR ArticleExtractor
 #' @aliases readNYTimes
 NYTimesSource <- function(query, n = 100, count = 10, appid, params = 
 		list(	format="json",
@@ -480,104 +475,6 @@ YahooInplaySource <- function(...){
 	ws
 }
 
-#' @title Retrieve feeds through the Google Reader API.
-#' @description This function utilizes the (unofficial) Google Reader API to retrieve RSS
-#' feeds. The advantage of access RSS feeds through the Google Reader API is that
-#' you are not limited by the number of entries a website may included in their
-#' feed. That is, Google maintains generally maintains a complete history of
-#' entries from the RSS feed.
-#' Code was partly taken from Jason Bryer 
-#' \url{http://bryer.org/2012/retrieving-rss-feeds-using-google-reader}
-#' Note that the contents of the results will be limited by what the website
-#' provides in their feeds. That is, Google does not contain more information
-#' per entry then what the website originally provided. If the initial feed
-#' contained only excerpts of the article, the feed from Google will too only
-#' contain excerpts. Be aware though that for sites that do provide the complete
-#' contents of posts will result in potentially very large downloads.
-#' @param feed url of feed to be retrieved through the Google Reader API
-#' @param auth.token Authentification token as retrieved from \code{\link{auth.google.reader}}
-#' @param params Additional parameters for Google Reader API, n (number of items) is already set to 100 (see also note).
-#' @param curlOpts RCurl options (as generated by \code{\link{curlOptions}}). Defaults to NULL (are therefore auto-generated).
-#' @param ... additional parameters to be used in \code{\link{WebSource}}
-#' @note Number of items (n, through params) can be set to a much larger number (>1000), depending on the number 
-#' of feed items cached in Google Reader. However, large request can take a lot of time/memory.
-#' @author Mario Annau
-#' @aliases readGoogleReader
-#' @note Currently, \code{\link{corpus.update}} is not supported for GoogleReaderSource
-#' @export 
-GoogleReaderSource <- function(feed, auth.token = auth.google.reader(), params = list(n = 100), curlOpts = NULL, ...){
-	google.auth <- paste("GoogleLogin auth=", auth.token, sep='')
-	
-	google.reader.feed <- "http://www.google.com/reader/atom/feed/"
-	feed.combined <- paste(google.reader.feed, feed, sep = "")
-	
-	ns <- c(rep(1000, floor(params[["n"]] / 1000)), params[["n"]] %% 1000)
-	ns <- ns[ns > 0]
-	params[["n"]] <- ns
-	
-	fq <- feedquery(feed.combined, params)
-	
-	if(is.null(curlOpts)){
-		if(!is.null(google.auth)){
-			curlOpts <- curlOptions(	
-					followlocation = TRUE, 
-					httpheader=c("Authorization"=google.auth),
-					maxconnects = 1,
-					maxredirs = 10,
-					timeout = 120,
-					connecttimeout = 30,
-					ssl.verifyhost=FALSE, 
-					ssl.verifypeer=FALSE)
-		}else{
-			stop("Either Parameter google.auth or curlOpts must be specified for Google Reader Source.")	
-		}
-	}
-	
-	namespaces <- c(	"media" = "http://search.yahoo.com/mrss/", 
-			"gr" = "http://www.google.com/schemas/reader/atom/",  
-			"idx"="urn:atom-extension:indexing", 
-			"index" = "no", 
-			"dir"="ltr",
-			"a"="http://www.w3.org/2005/Atom")
-	
-	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
-		nodes <- xpathSApply(tree, path = "///a:entry", namespaces = namespaces)
-		#to surpress namespace warnings while parsing
-		xmlns1 <- lapply(nodes, newXMLNamespace, "http://www.w3.org/2005/Atom", "a")
-		xmlns2 <- lapply(nodes, newXMLNamespace, "http://www.google.com/schemas/reader/atom/", "gr")
-		nodes
-	}
-	
-	
-	content <- list()
-	for(i in 1:length(fq)){
-		url.content <- getURL(fq[i], .opts = curlOpts)
-		tree <- parse(url.content, type = "XML")
-		elements <- parser(XML:::saveXML(tree))
-		content <- c(content, elements)
-		
-		continue <- unlist(getNodeSet(tree,  "//gr:continuation", namespaces, xmlValue))
-		if(is.null(continue)){
-			break
-		}
-		if(i < length(fq)){
-			fq[i+1] <- paste(fq[i+1], "&c=", continue, sep = "")
-		}
-	}
-	
-	s <- tm:::.Source(NULL, encoding = "UTF-8", length(content), FALSE, NULL, 0, vectorized = FALSE, class = "WebXMLSource")
-	s$Content <- content
-	s$Feedurls <- fq
-	s$Parser <- parser
-	s$CurlOpts <- curlOpts
-	s$DefaultReader <- readGoogleReader
-	s$PostFUN <- function(x){
-		x <- getLinkContent(x, extractor = ArticleExtractor)
-	}
-	s
-}
-
 #' @S3method getElem WebXMLSource
 #' @S3method getElem WebHTMLSource
 #' @importFrom tm getElem eoi
@@ -585,10 +482,6 @@ GoogleReaderSource <- function(feed, auth.token = auth.google.reader(), params =
 getElem.WebXMLSource <- 
 getElem.WebHTMLSource <-
 function(x) {
-#	virtual.file <- character(0)
-#	con <- textConnection("virtual.file", "w", local = TRUE)
-#	XML::saveXML(x$Content[[x$Position]], con)
-#	close(con)
 	list(content = XML::saveXML(x$Content[[x$Position]]), linkcontent = x$LinkContent[[x$Position]], uri = x$URI[[x$Position]])
 }
 

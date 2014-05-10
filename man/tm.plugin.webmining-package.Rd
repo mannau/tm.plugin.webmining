@@ -21,21 +21,15 @@ package even the main content of \code{HTML} pages can be
 extracted. }}
 }
 \examples{
-\dontrun{
 googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
-nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+#nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
-twitter <- WebCorpus(TwitterSource("Microsoft"))
+#twitter <- WebCorpus(TwitterSource("Microsoft"))
 yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
 yahooinplay <- WebCorpus(YahooInplaySource())
 yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
-
-token <- auth.google.reader()
-feed <- "http://feeds.feedburner.com/RBloggers"
-test <- WebCorpus(GoogleReaderSource(feed, auth.token = token, params = list(n = 100)))
-}
 }
 \author{
 Mario Annau \email{mario.annau@gmail}
@@ -49,7 +43,6 @@ Mario Annau \email{mario.annau@gmail}
 \code{\link{YahooFinanceSource}}
 \code{\link{YahooInplaySource}}
 \code{\link{YahooNewsSource}}
-\code{\link{GoogleReaderSource}}
 }
 \keyword{package}
 

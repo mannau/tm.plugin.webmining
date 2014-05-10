@@ -8,6 +8,7 @@
 encloseHTML <- function(x) UseMethod("encloseHTML", x)
 
 #' @S3method encloseHTML PlainTextDocument
+#' @importFrom tm Content<-
 #' @export 
 #' @noRd
 # FIXME: Could be done easier?? 

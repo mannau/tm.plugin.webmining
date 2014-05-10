@@ -17,6 +17,7 @@
 #' @param .encoding encoding to be used for \code{\link{getURL}}, defaults to integer() (=autodetect)
 #' @return corpus including downloaded link content
 #' @seealso \code{\link{WebSource}} \code{\link[RCurl]{getURL}} \code{\link[boilerpipeR]{Extractor}} 
+#' @importFrom tm Content
 #' @export
 getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 		timeout.request = 30, chunksize = 20, verbose = getOption("verbose"),
@@ -29,10 +30,7 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 				ssl.verifyhost=FALSE,
 				ssl.verifypeer = FALSE,
 				useragent = "R"),  
-		#write.disk = F, 
-		#tdir = tempdir(), 
 		retry.empty = 3, 
-		#delete.tempdir = F, 
 		sleep.time = 3, 
 		extractor = ArticleExtractor, 
 		.encoding = integer(),
@@ -45,13 +43,8 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 	if(verbose){
 		cat("Starting URL Download ...\n")
 	}
-	
 	retries <- 0
-	#allcontent <- rep("", length(links))
-	
 	while(any(empty <- sapply(corpus, function(x) identical(Content(x), character(0)))) & (retries <= retry.empty)){
-		# Avoid memory leakages through parallel processing
-		#p <- parallel({
 			retries <- retries + 1
 			emptycontent.ids <- which(empty)
 			
@@ -74,10 +67,6 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 				
 				# TODO Enable chunk download
 				content <- tryCatch({
-							#cat("Get ", length(links), "Links...")
-							#timeout = timeout.request * length(links)
-							#setTimeLimit(cpu=timeout, elapsed=timeout, transient=TRUE
-							#FIXME: Bug in getURL
 							getURL(chunk, .opts = curlOpts, .encoding = .encoding, ...)
 						},
 						error=function(e){
@@ -87,8 +76,6 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 							content <- list()
 							for(i in 1:length(chunk)){
 								content[[i]] <- tryCatch({
-											#timeout = timeout.request * length(links)
-											#setTimeLimit(cpu=timeout, elapsed=timeout, transient=TRUE)
 											getURL(chunk[i], .opts = curlOpts, .encoding = .encoding, ...)
 										},error = function(f) {
 											print(f)
@@ -100,36 +87,18 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 				
 				# Extract Content
 				extract <- sapply(content, extractor)
-				
-				# Escape '
-				#extract <- gsub("'", "", extract)	
-				
+
 				# Put Content Into Corpus
 				for(i in 1:length(chunk.ids)){
 					cid <- chunk.ids[i]
 					Content(corpus[[cid]]) <- extract[i]
 					
 				}
-
-				#Content(corpus[chunk.ids,]) <- extract
-				
-				
-				#allcontent[chunk.ids] <- content
-				
 				if(verbose){
 					progress <- floor(cend/length(links)*100)
 					cat(paste(progress, "% (",cend,"/",length(emptycontent.ids), ") ", Sys.time(), "\n",sep = ""))
 				}
-				#closeAllConnections()
-				
 			}
-			#TRUE
-		#})
-		#success <- collect(p)
 	}
-#	if(length(corpus) != length(allcontent)){
-#		stop("Length mismatch: length(Corpus) != length(allcontent)")
-#	}
-	
 	corpus
 }

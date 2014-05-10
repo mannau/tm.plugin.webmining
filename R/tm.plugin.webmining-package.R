@@ -19,24 +19,17 @@
 #' @title Retrieve structured, textual data from various web sources
 #' @author Mario Annau \email{mario.annau@@gmail}
 #' @keywords package
-#' @seealso \code{\link{WebCorpus}} \code{\link{GoogleBlogSearchSource}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{TwitterSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}} \code{\link{GoogleReaderSource}}
+#' @seealso \code{\link{WebCorpus}} \code{\link{GoogleBlogSearchSource}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{TwitterSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}} 
 #' @examples
-#' \dontrun{
 #' googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 #' googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 #' googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
-#' nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+#' #nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 #' reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
-#' twitter <- WebCorpus(TwitterSource("Microsoft"))
+#' #twitter <- WebCorpus(TwitterSource("Microsoft"))
 #' yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
 #' yahooinplay <- WebCorpus(YahooInplaySource())
 #' yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
-#' 
-#' token <- auth.google.reader()
-#' feed <- "http://feeds.feedburner.com/RBloggers"
-#' test <- WebCorpus(GoogleReaderSource(feed, auth.token = token, params = list(n = 100)))
-
-#' }
 NULL
 
 #' WebCorpus retrieved from Yahoo! News for the search term "Microsoft"

@@ -13,6 +13,7 @@
 #' @param retryEmpty specifies if retrieval for empty content elements should be repeated, 
 #' defaults to TRUE
 #' @param ... additional parameters for Corpus function (actually Corpus reader)
+#' @importFrom tm Corpus CMetaData
 #' @export
 WebCorpus <- function(x, readerControl = list(reader = x$DefaultReader, language = "en"), 
 		postFUN = x$PostFUN, retryEmpty = T, ...){
@@ -20,7 +21,7 @@ WebCorpus <- function(x, readerControl = list(reader = x$DefaultReader, language
 	if(!is.null(postFUN)){
 		corpus <- postFUN(corpus)
 	}
-	
+
 	cm <- CMetaData(corpus)
 	
 	cm$MetaData$Source <- x
@@ -36,14 +37,15 @@ WebCorpus <- function(x, readerControl = list(reader = x$DefaultReader, language
 	
 }
 
-#'@S3method [ WebCorpus
-#' @noRd
-`[.WebCorpus` <- function(x, i) {
-	if (missing(i)) return(x)
-	corpus <- tm:::.VCorpus(NextMethod("["), CMetaData(x), DMetaData(x)[i, , drop = FALSE])
-	class(corpus) <- c("WebCorpus", class(corpus))
-	corpus
-}
+#@S3method [ WebCorpus
+# @importFrom tm CMetaData DMetaData
+# @noRd
+#`[.WebCorpus` <- function(x, i) {
+#	if (missing(i)) return(x)
+#	corpus <- tm:::.VCorpus(NextMethod("["), CMetaData(x), DMetaData(x)[i, , drop = FALSE])
+#	class(corpus) <- c("WebCorpus", class(corpus))
+#	corpus
+#}
 
 #' @title Update/Extend \code{\link{WebCorpus}} with new feed items.
 #' @description The \code{corpus.update} method ensures, that the original 
@@ -72,6 +74,7 @@ corpus.update <- function(x, ...){
 #' @param fieldname name of \code{\link{Corpus}} field name to be used as ID, defaults to "ID"
 #' @param retryempty specifies if empty corpus elements should be downloaded again, defaults to TRUE
 #' @param ... additional parameters to \code{\link{Corpus}} function
+#' @importFrom tm CMetaData Corpus meta
 #' @noRd
 corpus.update.WebCorpus <- 
 function(x, fieldname = "ID", retryempty = T, verbose = F, ...) {
@@ -79,7 +82,7 @@ function(x, fieldname = "ID", retryempty = T, verbose = F, ...) {
 	
 	newsource <- source.update(cm$MetaData$Source)
 	
-	newcorpus <- Corpus(newsource, readerControl = cm$MetaData$ReaderControl, postFUN = NULL, ...)
+	newcorpus <- Corpus(newsource, readerControl = cm$MetaData$ReaderControl, ...)
 	#intersect on ID
 	id_old <- sapply(x, meta, fieldname)
 	if(any(sapply(id_old, length) == 0))

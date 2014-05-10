@@ -106,15 +106,15 @@ is shown below.
 
 <<echo=F, eval=T>>=
 # Little hack to restrict output width
-meta(yahoonews[[1]], "Description") <- 
-		paste(substring(meta(yahoonews[[1]], "Description"), 1, 70), "...", sep = "")
-meta(yahoonews[[1]], "ID") <- 
-		paste(substring(meta(yahoonews[[1]], "ID"), 1, 70), "...", sep = "")
-meta(yahoonews[[1]], "Origin") <- 
-		paste(substring(meta(yahoonews[[1]], "Origin"), 1, 70), "...", sep = "")
+tm::meta(yahoonews[[1]], "Description") <- 
+		paste(substring(tm::meta(yahoonews[[1]], "Description"), 1, 70), "...", sep = "")
+tm::meta(yahoonews[[1]], "ID") <- 
+		paste(substring(tm::meta(yahoonews[[1]], "ID"), 1, 70), "...", sep = "")
+tm::meta(yahoonews[[1]], "Origin") <- 
+		paste(substring(tm::meta(yahoonews[[1]], "Origin"), 1, 70), "...", sep = "")
 @
 <<echo=T, eval=T>>=
-meta(yahoonews[[1]])
+tm::meta(yahoonews[[1]])
 @
 
 For a Yahoo! News \class{TextDocument} we get useful meta--data like
@@ -124,7 +124,7 @@ For a Yahoo! News \class{TextDocument} we get useful meta--data like
 
 <<echo=F, eval=T>>=
 # Little hack to restrict output length
-Content(yahoonews[[1]]) <- 
+tm::Content(yahoonews[[1]]) <- 
 		paste(substring(yahoonews[[2]], 1, 100), "...", sep = "")
 @
 <<echo=T, eval=T>>=
@@ -233,7 +233,7 @@ Figure~\ref{fig:rbloggers} shows the histogram for the feed.
 
 <<echo=T, eval=T, fig=T>>=
 length(rbloggers)
-rbloggers.dates <- do.call(c,lapply(rbloggers, meta, "DateTimeStamp"))
+rbloggers.dates <- do.call(c,lapply(rbloggers, tm::meta, "DateTimeStamp"))
 hist(rbloggers.dates, breaks = "weeks", col = "grey", freq=T,
 		main = "Weekly Histogram of R-Bloggers")
 @

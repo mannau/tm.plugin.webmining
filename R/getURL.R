@@ -9,19 +9,17 @@
 #' @param .mapUnicode see \code{\link[RCurl]{getURL}}
 #' @param ... see \code{\link[RCurl]{getURL}}
 #' @seealso \code{\link[RCurl]{getURL}}
+#' @importFrom RCurl basicTextGatherer getCurlHandle multiTextGatherer getURIAsynchronous getURI curlPerform
 #' @export 
 getURL <- 
 function(url, ..., .opts = list(), write = basicTextGatherer(.mapUnicode = .mapUnicode), curl = getCurlHandle(),
 		async = length(url) > 1, .encoding = integer(), .mapUnicode = TRUE)
 {
-#    write = getNativeSymbolInfo("R_curl_write_data", PACKAGE = "RCurl")$address
-	
 	url = as.character(url)
 	
 	if(async) {
 		if(missing(write))
 			write = multiTextGatherer(url)
-		# FIXME: Parameter .encoding inserted!
 		return(getURIAsynchronous(url, ..., .opts = .opts, write = write, curl = curl, .encoding = .encoding)) 
 	}
 	
