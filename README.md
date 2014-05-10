@@ -8,9 +8,28 @@ To install the [latest version from CRAN](http://cran.r-project.org/web/packages
 install.packages("tm.plugin.webmining")
 ```
 
-Using the **devtools** package you can easily install the latest development version of **boilerpipeR** from github with
+Using the **devtools** package you can easily install the latest development version of **tm.plugin.webmining** from github with
 
 ```python
 library(devtools)
 install_github("mannau/tm.plugin.webmining")
 ```
+
+## Usage
+The next snippet shows how to download and extract the main text from all supported sources as WebCorpus objects including a rich set of metadata like *Author*, *DateTimeStamp* or *Source*:
+
+```python
+library(tm.plugin.webmining)
+googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
+googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
+googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
+nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = "<nytimes_appid>"))
+reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
+#twitter <- WebCorpus(TwitterSource("Microsoft")) -> not supported yet
+yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
+yahooinplay <- WebCorpus(YahooInplaySource())
+yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
+```
+
+## License
+**tm.plugin.webmining** is released under the [GNU General Public License Version 3](http://www.gnu.org/copyleft/gpl.html)
