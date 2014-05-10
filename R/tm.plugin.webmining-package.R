@@ -21,15 +21,17 @@
 #' @keywords package
 #' @seealso \code{\link{WebCorpus}} \code{\link{GoogleBlogSearchSource}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{TwitterSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}} 
 #' @examples
+#' \dontrun{
 #' googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 #' googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 #' googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
-#' #nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+#' nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 #' reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
 #' #twitter <- WebCorpus(TwitterSource("Microsoft"))
 #' yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
 #' yahooinplay <- WebCorpus(YahooInplaySource())
 #' yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
+#' }
 NULL
 
 #' WebCorpus retrieved from Yahoo! News for the search term "Microsoft"
