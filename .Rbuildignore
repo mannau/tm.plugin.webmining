@@ -1,0 +1,11 @@
+.settings
+.gitignore
+.project
+.README.md.html
+Makefile
+README.md
+release
+.*tar.gz
+tests
+data/.gitignore
+data/nytimes_appid.rda
