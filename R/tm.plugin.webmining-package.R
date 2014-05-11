@@ -27,7 +27,6 @@
 #' googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
 #' nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 #' reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
-#' #twitter <- WebCorpus(TwitterSource("Microsoft"))
 #' yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
 #' yahooinplay <- WebCorpus(YahooInplaySource())
 #' yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
@@ -39,7 +38,6 @@ NULL
 #' @name yahoonews
 #' @docType data
 #' @author Mario Annau
-#' @references \url{search.twitter.com}
 #' @keywords data
 #' @examples
 #' #Data set has been generated as follows:

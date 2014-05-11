@@ -17,8 +17,5 @@ yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
 \author{
 Mario Annau
 }
-\references{
-\url{search.twitter.com}
-}
 \keyword{data}
 
