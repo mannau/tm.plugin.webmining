@@ -7,7 +7,7 @@ context("ReutersNewsSource")
 
 test_that("ReutersNewsSource",{
 	
-	lengthcorp <- 10
+	lengthcorp <- 25
 		
 	testcorp <- WebCorpus(ReutersNewsSource("businessNews"))
 	# Check Corpus object

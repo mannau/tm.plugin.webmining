@@ -25,11 +25,11 @@ test_that("YahooInPlaySource",{
 	#FIXME: Date should be fixed
 	expect_that(all(sapply(datetimestamp, function(x) class(x)[1] == "character")), is_true())
 	
-	heading <- lapply(testcorp, function(x) meta(x, "Heading"))
+	heading <- lapply(testcorp, function(x) meta(x, "Heading")[1])
 	expect_that(all(sapply(heading, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(heading, nchar) > 0), is_true())
 	
-	id <- lapply(testcorp, function(x) meta(x, "ID"))
+	id <- lapply(testcorp, function(x) meta(x, "ID")[1])
 	expect_that(all(sapply(id, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(id, nchar) > 0), is_true())
 	

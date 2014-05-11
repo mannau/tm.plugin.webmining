@@ -37,15 +37,15 @@ WebCorpus <- function(x, readerControl = list(reader = x$DefaultReader, language
 	
 }
 
-#@S3method [ WebCorpus
-# @importFrom tm CMetaData DMetaData
-# @noRd
-#`[.WebCorpus` <- function(x, i) {
-#	if (missing(i)) return(x)
-#	corpus <- tm:::.VCorpus(NextMethod("["), CMetaData(x), DMetaData(x)[i, , drop = FALSE])
-#	class(corpus) <- c("WebCorpus", class(corpus))
-#	corpus
-#}
+#' @S3method [ WebCorpus
+#' @importFrom tm CMetaData DMetaData
+#' @noRd
+`[.WebCorpus` <- function(x, i) {
+	if (missing(i)) return(x)
+	corpus <- NextMethod("[")
+	class(corpus) <- c("WebCorpus", class(corpus))
+	corpus
+}
 
 #' @title Update/Extend \code{\link{WebCorpus}} with new feed items.
 #' @description The \code{corpus.update} method ensures, that the original 

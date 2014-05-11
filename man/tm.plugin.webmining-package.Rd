@@ -41,7 +41,7 @@ Mario Annau \email{mario.annau@gmail}
 \code{\link{GoogleBlogSearchSource}}
 \code{\link{GoogleFinanceSource}}
 \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}}
-\code{\link{ReutersNewsSource}} \code{\link{TwitterSource}}
+\code{\link{ReutersNewsSource}}
 \code{\link{YahooFinanceSource}}
 \code{\link{YahooInplaySource}}
 \code{\link{YahooNewsSource}}

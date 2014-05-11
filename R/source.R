@@ -245,7 +245,7 @@ GoogleNewsSource <- function(query, params =
 
 #' @title Get feed data from Reuters News RSS feed channels. Reuters provides numerous feed 
 #' @description channels (\url{http://www.reuters.com/tools/rss}) which can be retrieved through RSS 
-#' feeds. Only up to 10 items can be retrieved---therefore an alternative retrieval
+#' feeds. Only up to 25 items can be retrieved---therefore an alternative retrieval
 #' through the Google Reader API (\code{link{GoogleReaderSource}}) could be considered.
 #' @author Mario Annau
 #' @param query Reuters News RSS Feed, see \url{http://www.reuters.com/tools/rss} for a list of all feeds provided. Note that only string after 'http://feeds.reuters.com/reuters/' must be given. Defaults to 'businessNews'.
@@ -282,29 +282,29 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 }
 
 
-#' @title Get feed data from Twitter Search API (\url{https://dev.twitter.com/docs/api/1/get/search}). 
-#' @description The microblogging and social networking service twitter provides text based messages
-#' of up to 140 characters which can be searched and retrieved through the Twitter Search API. 
-#' Up to 1500 tweets are provided per request and no external content retrieval is necessary. 
-#' However, it should be noted that tweets contain special character formats and are quite 
-#' challenging for text mining tasks (therefore require specialized toolset).
-#' @author Mario Annau
-#' @param query Google Blog Search query
-#' @param n number of results, defaults to 1500
-#' @param params, additional query parameters, see \url{http://search.twitter.com/api/}
-#' @param ... additional parameters to \code{\link{WebSource}}
-#' @return WebXMLSource
-#' @seealso \code{\link{WebSource}}
-#' @export
-#' @examples
-#' \dontrun{
-#' corpus <- Corpus(TwitterSource("Microsoft"))
-#' }
-#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
-#' @importFrom tm tm_map
-#' @aliases readTwitter
-TwitterSource <- function(query, n = 1500, params = 
-				list(lang = 'en'),...){
+# @title Get feed data from Twitter Search API (\url{https://dev.twitter.com/docs/api/1/get/search}). 
+# @description The microblogging and social networking service twitter provides text based messages
+# of up to 140 characters which can be searched and retrieved through the Twitter Search API. 
+# Up to 1500 tweets are provided per request and no external content retrieval is necessary. 
+# However, it should be noted that tweets contain special character formats and are quite 
+# challenging for text mining tasks (therefore require specialized toolset).
+# @author Mario Annau
+# @param query Google Blog Search query
+# @param n number of results, defaults to 1500
+# @param params, additional query parameters, see \url{http://search.twitter.com/api/}
+# @param ... additional parameters to \code{\link{WebSource}}
+# @return WebXMLSource
+# @seealso \code{\link{WebSource}}
+# @export
+# @examples
+# \dontrun{
+# corpus <- Corpus(TwitterSource("Microsoft"))
+# }
+# @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
+# @importFrom tm tm_map
+# @aliases readTwitter
+#TwitterSource <- function(query, n = 1500, params = 
+#				list(lang = 'en'),...){
 #	feed <- "http://search.twitter.com/search.atom"
 #
 #	if(is.null(params[["q"]])) params[["q"]] <- query
@@ -340,8 +340,8 @@ TwitterSource <- function(query, n = 1500, params =
 #	}
 #	
 #	ws
-  stop("Not implemented yet")
-}
+#  stop("Not implemented yet")
+#}
 
 
 #' @title Get feed data from Yahoo! News (\url{http://news.yahoo.com/}).
