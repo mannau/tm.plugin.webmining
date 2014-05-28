@@ -8,12 +8,12 @@
 encloseHTML <- function(x) UseMethod("encloseHTML", x)
 
 #' @S3method encloseHTML PlainTextDocument
-#' @importFrom tm Content<-
+#' @importFrom NLP content<-
 #' @export 
 #' @noRd
 # FIXME: Could be done easier?? 
 encloseHTML.PlainTextDocument <- function(x){
-	Content(x) <- sprintf("<html>%s</html>", x)
+	content(x) <- sprintf("<html>%s</html>", x)
 	x
 } 
 
@@ -34,7 +34,7 @@ removeNonASCII <- function(x, fields = c("Content", "Heading", "Description"), f
 #' @noRd
 removeNonASCII.PlainTextDocument <- function(x, fields = c("Content", "Heading", "Description"), from = "UTF-8", to = "ASCII//TRANSLIT"){
 	if("Content" %in% fields){
-		Content(x) <- iconv(x, from, to)
+		content(x) <- iconv(x, from, to)
 	}
 	for(fn in setdiff(fields, "Content")){
 		meta(x, fn) <- iconv(meta(x, fn), from, to)

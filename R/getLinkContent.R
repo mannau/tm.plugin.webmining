@@ -17,9 +17,9 @@
 #' @param .encoding encoding to be used for \code{\link{getURL}}, defaults to integer() (=autodetect)
 #' @return corpus including downloaded link content
 #' @seealso \code{\link{WebSource}} \code{\link[RCurl]{getURL}} \code{\link[boilerpipeR]{Extractor}} 
-#' @importFrom tm Content
+#' @importFrom NLP content
 #' @export
-getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
+getLinkContent <- function(corpus, links = sapply(corpus, meta, "origin"),
 		timeout.request = 30, chunksize = 20, verbose = getOption("verbose"),
 		curlOpts = curlOptions(verbose = FALSE,
 				followlocation = TRUE, 
@@ -44,7 +44,7 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 		cat("Starting URL Download ...\n")
 	}
 	retries <- 0
-	while(any(empty <- sapply(corpus, function(x) identical(Content(x), character(0)))) & (retries <= retry.empty)){
+	while(any(empty <- sapply(corpus, function(x) identical(content(x), character(0)))) & (retries <= retry.empty)){
 			retries <- retries + 1
 			emptycontent.ids <- which(empty)
 			
@@ -91,7 +91,7 @@ getLinkContent <- function(corpus, links = sapply(corpus, meta, "Origin"),
 				# Put Content Into Corpus
 				for(i in 1:length(chunk.ids)){
 					cid <- chunk.ids[i]
-					Content(corpus[[cid]]) <- extract[i]
+					content(corpus[[cid]]) <- extract[i]
 					
 				}
 				if(verbose){

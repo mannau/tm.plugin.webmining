@@ -7,43 +7,30 @@
 #' @author Mario Annau
 #' @param feedurls urls from feeds to be retrieved
 #' @param class class label to be assigned to \code{Source} object, defaults to "WebXMLSource"
+#' @param reader function to be used to read content, see also \code{\link{readWeb}}
 #' @param parser function to be used to split feed content into chunks, returns list of content elements
 #' @param encoding specifies default encoding, defaults to 'UTF-8'
-#' @param vectorized specifies if source is vectorized, defaults to FALSE
 #' @param curlOpts a named list or CURLOptions object identifying the curl options for the handle. Type \code{listCurlOptions()} for all Curl options available.
+#' @param postFUN function saved in WebSource object and called to retrieve full text content from feed urls 
+#' @param ... additional parameters passed to \code{WebSource} object/structure
 #' @return WebSource
 #' @export
 #' @importFrom XML getNodeSet xmlValue
-#' @importFrom tm Source
 #' @importFrom RCurl curlOptions
-WebSource <- function(feedurls, class = "WebXMLSource", parser, encoding = "UTF-8", vectorized = FALSE,
+WebSource <- function(feedurls, class = "WebXMLSource", reader, parser, encoding = "UTF-8",
 		curlOpts = curlOptions(	followlocation = TRUE, 
 				maxconnects = 20,
 				maxredirs = 10,
 				timeout = 30,
-				connecttimeout = 30)){
-	#TODO: implement "save url retrieval with retries"
-	#cat("Retrieving ", feedurls, "\n")
-	# retrieve feeds using RCurl
+				connecttimeout = 30), postFUN = NULL, ...){
 	content_raw <- getURL(feedurls, .opts = curlOpts)
-	
 	content_parsed <- unlist(lapply(content_raw, parser), recursive = FALSE)
-	# generate source object
-	s <- Source(
-          encoding = encoding, 
-					length = length(content_parsed), 
-					names = NA_character_, 
-					position = 0, 
-					vectorized = FALSE, 
-					class = class)
-	
-	s$Content <- content_parsed
-	s$Feedurls <- feedurls
-	s$Parser <- parser
-	s$CurlOpts <- curlOpts
-	
-	s
+  structure(list(encoding = encoding, length = length(content_parsed), names = NA_character_,
+              position = 0, reader = reader, content = content_parsed, feedurls = feedurls,
+              parser = parser, curlOpts = curlOpts, postFUN = postFUN, ...), 
+            class = unique(c(class, "WebSource", "SimpleSource")))
 }
+
 
 #' @title Update WebXMLSource/WebHTMLSource/WebJSONSource
 #' @description Typically, update is called from \code{link{corpus.update}} and refreshes \code{$Content} in 
@@ -105,14 +92,9 @@ GoogleFinanceSource <- function(query, params =
 		tree <- parse(cr, type = "XML")
 		xpathSApply(tree, path = "//item")
 	}
-	
 	fq <- feedquery(feed, params)
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readGoogle
-	ws$PostFUN <- function(x){
-		x <- getLinkContent(x)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+  ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogle, 
+      postFUN = getLinkContent, ...)
 	ws
 }
 
@@ -146,15 +128,8 @@ YahooFinanceSource <- function(query, params =
 		tree <- parse(cr, type = "XML")
 		xpathSApply(tree, path = "//item")
 	}
-	
-	#linkreader <- function(tree) getNodeSet(tree, ".//link", fun = xmlValue)
-	
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readYahoo
-	ws$PostFUN <- function(x){
-		x <- getLinkContent(x)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahoo, 
+      postFUN = getLinkContent, ...)
 	ws
 }
 
@@ -191,13 +166,11 @@ GoogleBlogSearchSource <- function(query, params =
 		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
 		nodes
 	}
-	
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readGoogleBlogSearch
-	ws$PostFUN = function(x){
-		x <- getLinkContent(x, extractor = DefaultExtractor)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+  postFUN = function(x){
+    x <- getLinkContent(x, extractor = DefaultExtractor)
+  }
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogleBlogSearch, 
+      postFUN = postFUN, ...)
 	ws
 }
 
@@ -225,7 +198,6 @@ GoogleNewsSource <- function(query, params =
 						num = 100, 
 						output='rss'), ...){
 	feed <- "http://news.google.com/news"
-	
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
 		tree <- parse(cr, type = "XML")
@@ -233,13 +205,8 @@ GoogleNewsSource <- function(query, params =
 		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
 		nodes
 	}
-	
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readGoogle
-	ws$PostFUN = function(x){
-		x <- getLinkContent(x)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogle,
+      postFUN = getLinkContent, ...)
 	ws
 }
 
@@ -263,7 +230,6 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 	feed <- "http://feeds.reuters.com/reuters"
 	
 	fq <- paste(feed, query, sep = "/")
-	#fq <- feedquery(feed, params)
 	parser <- function(cr){
 		tree <- parse(cr, type = "XML")
 		nodes <- xpathSApply(tree, path = "//item")
@@ -271,13 +237,8 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 		nodes
 	}
 
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader <- readReutersNews
-	ws$PostFUN = function(x){
-		x <- getLinkContent(x)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
-	
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readReutersNews, 
+      postFUN = getLinkContent, ...)
 	ws
 }
 
@@ -373,13 +334,8 @@ YahooNewsSource <- function(query, params =
 		tree <- parse(cr, type = "XML")
 		xpathSApply(tree, path = "//item")
 	}
-	
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-	ws$DefaultReader = readYahoo
-	ws$PostFUN = function(x){
-		x <- getLinkContent(x)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahoo, 
+      postFUN = getLinkContent, ...)
 	ws
 }
 
@@ -423,24 +379,25 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 	}
 	
 	# Changing number of maxredirs to 20 for better contentratio
-	curlOpts = curlOptions(	verbose = FALSE,
-			followlocation = TRUE, 
-			maxconnects = 5,
-			maxredirs = 20,
-			timeout = 30,
-			connecttimeout = 30,
-			ssl.verifyhost=FALSE,
-			ssl.verifypeer = FALSE,
-			useragent = "R")
+#	curlOpts = curlOptions(	verbose = FALSE,
+#			followlocation = TRUE, 
+#			maxconnects = 5,
+#			maxredirs = 20,
+#			timeout = 30,
+#			connecttimeout = 30,
+#			ssl.verifyhost= FALSE,
+#			ssl.verifypeer = FALSE,
+#			useragent = "R")
 	
 	linkreader <- function(tree) tree[["url"]]
 	
-	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, ...)
-	ws$DefaultReader <- readNYTimes
-	ws$PostFUN <- function(x){
-		x <- getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
-		#tm_map(x, extract, extractor = ArticleExtractor)
-	}
+	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
+      postFUN = getLinkContent, ...)
+#	ws$DefaultReader <- readNYTimes
+#	ws$PostFUN <- function(x){
+#		x <- getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
+#		#tm_map(x, extract, extractor = ArticleExtractor)
+#	}
 	ws
 }
 
@@ -466,37 +423,51 @@ YahooInplaySource <- function(...){
 	url <- "http://finance.yahoo.com/marketupdate/inplay"
 	parser <- function(cr){
 		tree <- parse(cr, useInternalNodes = T, type = "HTML")
-		xp_expr = "//div[@class= 'yfitmbdy']/p"
+		xp_expr = "//div[@class= 'body yom-art-content clearfix']/p"
 		paragraphs = xpathSApply(tree, xp_expr)
 	}
 	
-	ws <- WebSource(feedurls = url, class = "WebHTMLSource", parser = parser, ...)
-	ws$DefaultReader = readYahooInplay
+	ws <- WebSource(feedurls = url, class = "WebHTMLSource", parser = parser, reader = readYahooInplay, ...)
 	ws
 }
 
 #' @S3method getElem WebXMLSource
 #' @S3method getElem WebHTMLSource
-#' @importFrom tm getElem eoi
+#' @importFrom XML saveXML
 #' @noRd
 getElem.WebXMLSource <- 
-getElem.WebHTMLSource <-
-function(x) {
-	list(content = XML::saveXML(x$Content[[x$Position]]), linkcontent = x$LinkContent[[x$Position]], uri = x$URI[[x$Position]])
+getElem.WebHTMLSource <- function(x) {
+	list(content = saveXML(x$content[[x$position]]), linkcontent = NULL, uri = NULL)
 }
 
 #' @S3method getElem WebJSONSource
 #' @noRd
-getElem.WebJSONSource <- 
-function(x) {
+getElem.WebJSONSource <- function(x) {
 	list(content = x$Content[[x$Position]], linkcontent = x$LinkContent[[x$Position]], uri = x$URI[[x$Position]])
 }
 
-#' @S3method eoi WebXMLSource
-#' @S3method eoi WebHTMLSource
-#' @S3method eoi WebJSONSource
-#' @noRd
-eoi.WebXMLSource <- 
-eoi.WebHTMLSource <- 
-eoi.WebJSONSource <- 
-function(x) length(x$Content) <= x$Position
+# @importFrom tm getElem eoi
+# @S3method eoi WebSource
+# @noRd
+#eoi.WebSource <- 
+#function(x) length(x$content) <= x$position
+
+
+# @importFrom tm stepNext
+# @S3method stepNext WebSource
+# @noRd
+#stepNext.WebSource <- 
+#function(x){
+#  x$position <- x$position + 1
+#  x
+#}
+
+
+#reader <- function(x)
+#  UseMethod("reader", x)
+# @S3method reader WebSource
+# @importFrom tm reader
+# @noRd
+#reader.WebSource <- function(x) {
+#  x$reader
+#}

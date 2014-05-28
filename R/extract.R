@@ -16,14 +16,14 @@ extract <- function(x, extractor, ...) UseMethod("extract", x)
 #' @param x PlainTextDocument
 #' @param extractor default extraction function to be used, defaults to \code{\link{extractContentDOM}}
 #' @param ... additional parameters to extractor function
-#' @importFrom tm Content
+#' @importFrom NLP content
 #' @export
 #' @noRd
 extract.PlainTextDocument <- function(x, extractor = extractContentDOM, ...){
-	Content(x) <- tryCatch(extractor(x, ...),
+	content(x) <- tryCatch(extractor(x, ...),
 			error = function(e){
 				warning(e)
-				Content(x)
+				content(x)
 			})
 	x
 } 

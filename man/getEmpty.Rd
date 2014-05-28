@@ -13,8 +13,7 @@ getEmpty(x, ...)
 \description{
 Retrieve content of all empty (textlength equals zero)
 corpus elements. If corpus element is empty,
-\code{$postFUN} is called (specified in
-\code{\link{CMetaData}})
+\code{$postFUN} is called (specified in \code{\link{meta}})
 }
 \seealso{
 \code{\link{WebCorpus}}

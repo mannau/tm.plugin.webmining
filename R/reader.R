@@ -24,7 +24,7 @@ readWeb <- FunctionGenerator(function(spec, doc, parser, contentparser, freeFUN 
 		tree <- parser(elem$content)
 	
 		###Set Content
-		Content(doc) <- if ("Content" %in% names(spec)){
+		content(doc) <- if ("Content" %in% names(spec)){
 							content <- contentparser(tree, spec[["Content"]])
 						}
 						else{
@@ -125,15 +125,15 @@ function (doc, spec)
 #' @export
 readNYTimes <- readWebJSON(spec = list(
 #		Author = list("field", "byline"),
-		Description = list("field", "body"),
-		DateTimeStamp = list("function", function(node)
+		description = list("field", "body"),
+		datetimestamp = list("function", function(node)
 					strptime(node[["date"]],
 							format = "%Y%m%d",
 							tz = "GMT")),
-		Heading = list("field", "title"),
-		Origin = list("field", "url"),
-		Language = list("unevaluated", "en"),
-		ID = list("field", "url")),
+		heading = list("field", "title"),
+		origin = list("field", "url"),
+		language = list("unevaluated", "en"),
+		id = list("field", "url")),
 	doc = PlainTextDocument())
 
 
@@ -146,7 +146,7 @@ readNYTimes <- readWebJSON(spec = list(
 #		Author = list("node", "//author/name"),
 #		AuthorURI = list("node", "//author/uri"),
 #		Content = list("node", "//content"),
-#		DateTimeStamp = list("function", function(node)
+#		datetimestamp = list("function", function(node)
 #					strptime(sapply(getNodeSet(node, "//published"), xmlValue),
 #							format = "%Y-%m-%dT%H:%M:%S",
 #							tz = "GMT")),
@@ -155,20 +155,20 @@ readNYTimes <- readWebJSON(spec = list(
 #							format = "%Y-%m-%dT%H:%M:%S",
 #							tz = "GMT")),
 #		Source = list("node", "//twitter:source"),
-#		Language = list("node", "//twitter:lang"),
+#		language = list("node", "//twitter:lang"),
 #		Geo = list("node", "//twitter:geo"),
-#		ID = list("node",  "//id")),
+#		id = list("node",  "//id")),
 #	doc = PlainTextDocument())
 
 
 #' Read content from Google...Source
 #' @importFrom XML getNodeSet xmlValue
-#' @importFrom tm meta<-
+#' @importFrom NLP meta<-
 #' @noRd
 #' @export
 readGoogle <- readWebXML(spec = list(
-		Heading = list("node", "//title"),
-		DateTimeStamp = list("function", function(node){
+		heading = list("node", "//title"),
+		datetimestamp = list("function", function(node){
 					loc <- Sys.getlocale("LC_TIME")
 					Sys.setlocale("LC_TIME", "C")
 					val <- sapply(getNodeSet(node, "//pubDate"), xmlValue)
@@ -176,12 +176,12 @@ readGoogle <- readWebXML(spec = list(
 					Sys.setlocale("LC_TIME", loc)
 					time
 				}),
-		Origin = list("node", "//link"),
-		Description = list("function", function(node){
+		origin = list("node", "//link"),
+		description = list("function", function(node){
 					val <- sapply(getNodeSet(node, "//item/description"), xmlValue)
 					extractHTMLStrip(sprintf("<html>%s</html>", val), asText = T)
 				}),
-		ID = list("node",  "//guid")),
+		id = list("node",  "//guid")),
 	doc = PlainTextDocument())
 
 #' Read content from Yahoo RSS Source
@@ -190,8 +190,8 @@ readGoogle <- readWebXML(spec = list(
 #' @noRd
 #' @export
 readYahoo <- readWebXML(spec = list(
-		Heading = list("node", "//title"),
-		DateTimeStamp = list("function", function(node){
+		heading = list("node", "//title"),
+		datetimestamp = list("function", function(node){
 					loc <- Sys.getlocale("LC_TIME")
 					Sys.setlocale("LC_TIME", "C")
 					val <- sapply(getNodeSet(node, "//pubDate"), xmlValue)
@@ -199,20 +199,20 @@ readYahoo <- readWebXML(spec = list(
 					Sys.setlocale("LC_TIME", loc)
 					time
 				}),
-		Origin = list("node", "//link"),
-		Description = list("node", "//item/description"),
-		ID = list("node",  "//guid")),
+		origin = list("node", "//link"),
+		description = list("node", "//item/description"),
+		id = list("node",  "//guid")),
 	doc = PlainTextDocument())
 
 
 #' Read content from GoogleBlogSearchSource
 #' @importFrom XML getNodeSet xmlValue
-#' @importFrom tm meta<-
+#' @importFrom NLP meta<-
 #' @noRd
 #' @export
 readGoogleBlogSearch <- readWebXML(spec=list(
-		Heading = list("node", "//title"),
-		DateTimeStamp = list("function", function(node){
+		heading = list("node", "//title"),
+		datetimestamp = list("function", function(node){
 					loc <- Sys.getlocale("LC_TIME")
 					Sys.setlocale("LC_TIME", "C")
 					val <- sapply(getNodeSet(node, "//dc:date"), xmlValue)
@@ -220,11 +220,11 @@ readGoogleBlogSearch <- readWebXML(spec=list(
 					Sys.setlocale("LC_TIME", loc)
 					time
 				}),
-		Origin = list("node", "//link"),
-		ID = list("node", "//link"),
-		Description = list("node", "//item/description"),
-		Publisher = list("node","//dc:publisher"),
-		Author = list("node","//dc:creator")),
+		origin = list("node", "//link"),
+		id = list("node", "//link"),
+		description = list("node", "//item/description"),
+		publisher = list("node","//dc:publisher"),
+		author = list("node","//dc:creator")),
 	doc = PlainTextDocument())
 
 
@@ -233,14 +233,14 @@ readGoogleBlogSearch <- readWebXML(spec=list(
 #' @noRd
 #' @export
 readYahooInplay <- readWebHTML(spec = list(
-		Heading = list("node", "//b[1]"),
-		ID = list("node", "//b[1]"),
-		Content = list("node", "//p"),
-		DateTimeStamp = list("function", function(node){
+		heading = list("node", "//b[1]"),
+		id = list("node", "//b[1]"),
+		content = list("node", "//p"),
+		datetimestamp = list("function", function(node){
 					val <- unlist(getNodeSet(node, "//b[1]", fun = xmlValue))
 					substr(val, 1, regexpr("\\s", val)-1)
 				}),
-		Ticker  = list("node", "//p/b/a")),
+		ticker  = list("node", "//p/b/a")),
 	doc = PlainTextDocument())
 
 
@@ -251,8 +251,8 @@ readYahooInplay <- readWebHTML(spec = list(
 #' @noRd
 #' @export
 readReutersNews <- readWebXML(spec = list(
-				Heading = list("node", "//title"),
-				DateTimeStamp = list("function", function(node){
+				heading = list("node", "//title"),
+				datetimestamp = list("function", function(node){
 							loc <- Sys.getlocale("LC_TIME")
 							Sys.setlocale("LC_TIME", "C")
 							val <- sapply(getNodeSet(node, "//pubDate"), xmlValue)
@@ -260,13 +260,13 @@ readReutersNews <- readWebXML(spec = list(
 							Sys.setlocale("LC_TIME", loc)
 							time
 						}),
-				Origin = list("node", "//link"),
-				Description = list("function", function(node){
+				origin = list("node", "//link"),
+				description = list("function", function(node){
 							val <- sapply(getNodeSet(node, "//item/description"), xmlValue)
 							extractHTMLStrip(sprintf("<html>%s</html>", val), asText = T)
 						}),
-				ID = list("node",  "//guid"),
-				Category = list("node", "//category")),
+				id = list("node",  "//guid"),
+				category = list("node", "//category")),
 		doc = PlainTextDocument())
 
 

@@ -24,6 +24,6 @@ Based on the \code{ID} included in the
 downloaded and added to the \code{\link{WebCorpus}}. All
 relevant information regariding the original source feeds
 are stored in the \code{\link{WebCorpus}}' meta data
-(\code{\link[tm]{CMetaData}}).
+(\code{\link[tm]{meta}}).
 }
 

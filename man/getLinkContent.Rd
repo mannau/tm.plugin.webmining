@@ -2,7 +2,7 @@
 \alias{getLinkContent}
 \title{Get main content for corpus items, specified by links.}
 \usage{
-getLinkContent(corpus, links = sapply(corpus, meta, "Origin"),
+getLinkContent(corpus, links = sapply(corpus, meta, "origin"),
   timeout.request = 30, chunksize = 20, verbose = getOption("verbose"),
   curlOpts = curlOptions(verbose = FALSE, followlocation = TRUE, maxconnects =
   5, maxredirs = 10, timeout = timeout.request, connecttimeout =
