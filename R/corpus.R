@@ -15,7 +15,7 @@
 #' @param ... additional parameters for Corpus function (actually Corpus reader)
 #' @importFrom tm Corpus reader getElem stepNext eoi SimpleSource
 #' @export
-WebCorpus <- function(x, readerControl = list(reader = tm::reader(x), language = "en"),
+WebCorpus <- function(x, readerControl = list(reader = reader(x), language = "en"),
     postFUN = x$postFUN, retryEmpty = TRUE, ...)
 {
   stopifnot(inherits(x, "WebSource"))
@@ -137,44 +137,45 @@ corpus.update <- function(x, ...){
 #' @importFrom NLP meta
 #' @noRd
 corpus.update.WebCorpus <- 
-function(x, fieldname = "ID", retryempty = T, verbose = F, ...) {
-#	cm <- x$meta
-#	
-#	newsource <- source.update(cm$MetaData$Source)
-#	
-#	newcorpus <- Corpus(newsource, readerControl = cm$MetaData$ReaderControl, ...)
-#	#intersect on ID
-#	id_old <- sapply(x, meta, fieldname)
-#	if(any(sapply(id_old, length) == 0))
-#		stop(paste("Not all elements in corpus to update have field '", fieldname, "' defined", sep = ""))
-#
-#	id_new <- sapply(newcorpus, meta, fieldname)
-#	if(any(sapply(id_new, length) == 0))
-#		stop(paste("Not all elements in corpus to update have field '", fieldname, "' defined", sep = ""))
-#	
-#	newcorpus <- newcorpus[!id_new %in% id_old]
-#	
-#	if(length(newcorpus) > 0){
-#		if(!is.null(cm$MetaData$PostFUN)){
-#			newcorpus <- cm$MetaData$PostFUN(newcorpus)
-#		}
-#		corpus <- c(x, newcorpus)
-#		attr(corpus, "CMetaData") <- CMetaData(x)
-#		class(corpus) <- c("WebCorpus", class(corpus))
-#	}else{
-#		corpus <- x
-#	}
-#	
-#	if(retryempty){
-#		corpus <- getEmpty(corpus)
-#	}
-#	
-#	if(verbose){
-#		cat(length(newcorpus), " corpus items added.\n")
-#	}
-#		
-#	corpus
-  stop("Not implemented yet")
+function(x, fieldname = "id", retryempty = TRUE, verbose = FALSE, ...) {
+	cm <- x$meta
+	
+	newsource <- source.update(cm$source)
+	
+  #WebCorpus
+	newcorpus <- WebCorpus(newsource, readerControl = cm$MetaData$ReaderControl, 
+      retryEmpty = FALSE, ...)
+	#intersect on ID
+	id_old <- sapply(x, meta, fieldname)
+	if(any(sapply(id_old, length) == 0))
+		stop(paste("Not all elements in corpus to update have field '", fieldname, "' defined", sep = ""))
+
+	id_new <- sapply(newcorpus, meta, fieldname)
+	if(any(sapply(id_new, length) == 0))
+		stop(paste("Not all elements in corpus to update have field '", fieldname, "' defined", sep = ""))
+	
+	newcorpus <- newcorpus[!id_new %in% id_old]
+	
+	if(length(newcorpus) > 0){
+		if(!is.null(cm$postFUN)){
+			newcorpus <- cm$postFUN(newcorpus)
+		}
+		corpus <- c(x, newcorpus)
+		#attr(corpus, "CMetaData") <- CMetaData(x)
+		class(corpus) <- c("WebCorpus", class(corpus))
+	}else{
+		corpus <- x
+	}
+	
+	if(retryempty){
+		corpus <- getEmpty(corpus)
+	}
+	
+	if(verbose){
+		cat(length(newcorpus), " corpus items added.\n")
+	}
+		
+	corpus
 }
 
 
