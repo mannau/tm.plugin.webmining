@@ -18,6 +18,7 @@
 #' @return corpus including downloaded link content
 #' @seealso \code{\link{WebSource}} \code{\link[RCurl]{getURL}} \code{\link[boilerpipeR]{Extractor}} 
 #' @importFrom NLP content
+#' @importFrom RCurl getURL
 #' @export
 getLinkContent <- function(corpus, links = sapply(corpus, meta, "origin"),
 		timeout.request = 30, chunksize = 20, verbose = getOption("verbose"),
