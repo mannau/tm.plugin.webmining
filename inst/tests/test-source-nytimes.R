@@ -18,34 +18,34 @@ test_that("NYTimesSource",{
 	testcorp <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 	# Check Corpus object
 	expect_that(length(testcorp), equals(lengthcorp))
-	expect_that(class(testcorp), equals(c("WebCorpus","VCorpus","Corpus","list")))
+	expect_that(class(testcorp), equals(c("WebCorpus","VCorpus","Corpus")))
 	
 	# Check Content
 	#expect_that(all(sapply(testcorp, nchar) > 0), is_true())
-	contentratio <- length(which(sapply(testcorp, nchar) > 0)) / length(testcorp)
+	contentratio <- length(which(sapply(testcorp, nchar)[1,] > 0)) / length(testcorp)
 	expect_that(contentratio > 0.5, is_true())
 	
 	# Check Meta Data
-	datetimestamp <- lapply(testcorp, function(x) meta(x, "DateTimeStamp"))
+	datetimestamp <- lapply(testcorp, function(x) meta(x, "datetimestamp"))
 	expect_that(all(sapply(datetimestamp, function(x) class(x)[1] == "POSIXlt")), is_true())
 	
-	description <- lapply(testcorp, function(x) meta(x, "Description"))
+	description <- lapply(testcorp, function(x) meta(x, "description"))
 	expect_that(all(sapply(description, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(description, nchar) > 0), is_true())
 	
-	heading <- lapply(testcorp, function(x) meta(x, "Heading"))
+	heading <- lapply(testcorp, function(x) meta(x, "heading"))
 	expect_that(all(sapply(heading, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(heading, nchar) > 0), is_true())
 	
-	id <- lapply(testcorp, function(x) meta(x, "ID"))
+	id <- lapply(testcorp, function(x) meta(x, "id"))
 	expect_that(all(sapply(id, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(id, nchar) > 0), is_true())
 	
-	language <- lapply(testcorp, function(x) meta(x, "Language"))
+	language <- lapply(testcorp, function(x) meta(x, "language"))
 	expect_that(all(sapply(language, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(language, nchar) > 0), is_true())
 	
-	origin <- lapply(testcorp, function(x) meta(x, "Origin"))
+	origin <- lapply(testcorp, function(x) meta(x, "origin"))
 	expect_that(all(sapply(origin, function(x) class(x)[1] == "character")), is_true())
 	expect_that(all(sapply(origin, nchar) > 0), is_true())
 	
