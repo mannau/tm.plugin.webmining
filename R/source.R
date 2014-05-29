@@ -47,16 +47,14 @@ source.update <- function(x){
 #' @S3method source.update WebHTMLSource
 #' @S3method source.update WebJSONSource
 #' @noRd
-#update <- function(x) UseMethod("update", x)
 source.update.WebXMLSource <- 
 source.update.WebHTMLSource <- 
 source.update.WebJSONSource <- 
 function(x) {
-	content_raw <- getURL(x$Feedurls, .opts = x$CurlOpts)
-	content_parsed <- unlist(lapply(content_raw, x$Parser), recursive = FALSE)
-	#content_parsed <- unlist(lapply(x$Feedurls, x$Parser), recursive = FALSE)
-	x$Content <- content_parsed
-	x$Position <- 0
+	content_raw <- getURL(x$feedurls, .opts = x$curlOpts)
+	content_parsed <- unlist(lapply(content_raw, x$parser), recursive = FALSE)
+	x$content <- content_parsed
+	x$position <- 0
 	x
 }
 
@@ -359,7 +357,7 @@ YahooNewsSource <- function(query, params =
 #' @examples
 #' \dontrun{
 #' #nytimes_appid needs to be specified
-#' corpus <- Corpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+#' corpus <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 #' }
 #' @export
 #' @importFrom RJSONIO fromJSON
@@ -379,20 +377,20 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 	}
 	
 	# Changing number of maxredirs to 20 for better contentratio
-#	curlOpts = curlOptions(	verbose = FALSE,
-#			followlocation = TRUE, 
-#			maxconnects = 5,
-#			maxredirs = 20,
-#			timeout = 30,
-#			connecttimeout = 30,
-#			ssl.verifyhost= FALSE,
-#			ssl.verifypeer = FALSE,
-#			useragent = "R")
+	curlOpts = curlOptions(	verbose = FALSE,
+			followlocation = TRUE, 
+			maxconnects = 5,
+			maxredirs = 20,
+			timeout = 30,
+			connecttimeout = 30,
+			ssl.verifyhost= FALSE,
+			ssl.verifypeer = FALSE,
+			useragent = "R")
 	
-	linkreader <- function(tree) tree[["url"]]
+	#linkreader <- function(tree) tree[["url"]]
 	
 	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
-      postFUN = getLinkContent, ...)
+      postFUN = getLinkContent, curlOpts = curlOpts, ...)
 #	ws$DefaultReader <- readNYTimes
 #	ws$PostFUN <- function(x){
 #		x <- getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
@@ -443,7 +441,7 @@ getElem.WebHTMLSource <- function(x) {
 #' @S3method getElem WebJSONSource
 #' @noRd
 getElem.WebJSONSource <- function(x) {
-	list(content = x$Content[[x$Position]], linkcontent = x$LinkContent[[x$Position]], uri = x$URI[[x$Position]])
+	list(content = x$content[[x$position]], linkcontent = NULL, uri = NULL)
 }
 
 # @importFrom tm getElem eoi
