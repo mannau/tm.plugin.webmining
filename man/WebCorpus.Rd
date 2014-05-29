@@ -2,7 +2,7 @@
 \alias{WebCorpus}
 \title{WebCorpus constructor function.}
 \usage{
-WebCorpus(x, readerControl = list(reader = tm::reader(x), language = "en"),
+WebCorpus(x, readerControl = list(reader = reader(x), language = "en"),
   postFUN = x$postFUN, retryEmpty = TRUE, ...)
 }
 \arguments{

@@ -40,7 +40,7 @@ retrieval is limited to 100 items.
 \examples{
 \dontrun{
 #nytimes_appid needs to be specified
-corpus <- Corpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+corpus <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
 }
 }
 \author{
