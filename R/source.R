@@ -43,10 +43,8 @@ source.update <- function(x){
 }
 
 #'update WebSource
-#' @S3method source.update WebXMLSource
-#' @S3method source.update WebHTMLSource
-#' @S3method source.update WebJSONSource
 #' @noRd
+#' @export
 source.update.WebXMLSource <- 
 source.update.WebHTMLSource <- 
 source.update.WebJSONSource <- 
@@ -429,43 +427,16 @@ YahooInplaySource <- function(...){
 	ws
 }
 
-#' @S3method getElem WebXMLSource
-#' @S3method getElem WebHTMLSource
 #' @importFrom XML saveXML
 #' @noRd
+#' @export
 getElem.WebXMLSource <- 
 getElem.WebHTMLSource <- function(x) {
 	list(content = saveXML(x$content[[x$position]]), linkcontent = NULL, uri = NULL)
 }
 
-#' @S3method getElem WebJSONSource
 #' @noRd
+#' @export
 getElem.WebJSONSource <- function(x) {
 	list(content = x$content[[x$position]], linkcontent = NULL, uri = NULL)
 }
-
-# @importFrom tm getElem eoi
-# @S3method eoi WebSource
-# @noRd
-#eoi.WebSource <- 
-#function(x) length(x$content) <= x$position
-
-
-# @importFrom tm stepNext
-# @S3method stepNext WebSource
-# @noRd
-#stepNext.WebSource <- 
-#function(x){
-#  x$position <- x$position + 1
-#  x
-#}
-
-
-#reader <- function(x)
-#  UseMethod("reader", x)
-# @S3method reader WebSource
-# @importFrom tm reader
-# @noRd
-#reader.WebSource <- function(x) {
-#  x$reader
-#}

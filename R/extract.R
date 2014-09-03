@@ -12,13 +12,12 @@ extract <- function(x, extractor, ...) UseMethod("extract", x)
 #' Extract Main Content from Text Documents
 #' Use implemented extraction functions (through boilerpipeR) to extract main content from
 #' \code{TextDocument}s.
-#' @S3method extract PlainTextDocument
 #' @param x PlainTextDocument
 #' @param extractor default extraction function to be used, defaults to \code{\link{extractContentDOM}}
 #' @param ... additional parameters to extractor function
 #' @importFrom NLP content
-#' @export
 #' @noRd
+#' @export
 extract.PlainTextDocument <- function(x, extractor = extractContentDOM, ...){
 	content(x) <- tryCatch(extractor(x, ...),
 			error = function(e){

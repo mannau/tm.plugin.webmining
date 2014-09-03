@@ -97,8 +97,8 @@ function(readerControl, reader = NULL, ...)
 #	
 #}
 
-#' @S3method [ WebCorpus
 #' @noRd
+#' @export
 `[.WebCorpus` <- function(x, i) {
 	if (missing(i)) return(x)
 	corpus <- NextMethod("[")
@@ -128,7 +128,6 @@ corpus.update <- function(x, ...){
 }
 
 #' Update/Extend \code{\link{WebCorpus}} with new feed items.
-#' @S3method corpus.update WebCorpus
 #' @param x \code{\link{WebCorpus}}
 #' @param fieldname name of \code{\link{Corpus}} field name to be used as ID, defaults to "ID"
 #' @param retryempty specifies if empty corpus elements should be downloaded again, defaults to TRUE
@@ -136,6 +135,7 @@ corpus.update <- function(x, ...){
 #' @importFrom tm Corpus
 #' @importFrom NLP meta
 #' @noRd
+#' @export
 corpus.update.WebCorpus <- 
 function(x, fieldname = "id", retryempty = TRUE, verbose = FALSE, ...) {
 	cm <- x$meta
@@ -192,9 +192,10 @@ getEmpty <- function(x, ...){
 }
 	
 
-#' @S3method getEmpty WebCorpus
+
 #' @importFrom NLP content
 #' @noRd
+#' @export
 getEmpty.WebCorpus <- 
 function(x, nChar = 0, ...){
 	cm <- x$meta

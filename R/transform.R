@@ -7,10 +7,9 @@
 #' @aliases encloseHTML.PlainTextDocument encloseHTML.character
 encloseHTML <- function(x) UseMethod("encloseHTML", x)
 
-#' @S3method encloseHTML PlainTextDocument
 #' @importFrom NLP content<-
-#' @export 
 #' @noRd
+#' @export 
 # FIXME: Could be done easier?? 
 encloseHTML.PlainTextDocument <- function(x){
 	content(x) <- sprintf("<html>%s</html>", x)
@@ -29,9 +28,8 @@ encloseHTML.PlainTextDocument <- function(x){
 removeNonASCII <- function(x, fields = c("Content", "Heading", "Description"), from = "UTF-8", to = "ASCII//TRANSLIT")
 	UseMethod("removeNonASCII", x)
 
-#' @S3method removeNonASCII PlainTextDocument
-#' @export 
 #' @noRd
+#' @export
 removeNonASCII.PlainTextDocument <- function(x, fields = c("Content", "Heading", "Description"), from = "UTF-8", to = "ASCII//TRANSLIT"){
 	if("Content" %in% fields){
 		content(x) <- iconv(x, from, to)

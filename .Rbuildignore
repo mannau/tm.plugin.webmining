@@ -6,6 +6,5 @@ Makefile
 README.md
 release
 .*tar.gz
-tests
 data/.gitignore
 data/nytimes_appid.rda
