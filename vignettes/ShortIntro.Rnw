@@ -157,7 +157,6 @@ the search query/stock ticker \code{Microsoft} has been used. Since Reuters News
 only offers a predefined number of channels we selected \code{businessNews}. 
 
 <<echo=T, eval=F>>=
-googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
 nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
