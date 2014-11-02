@@ -15,14 +15,16 @@ test_that("NYTimesSource",{
 	}
 	
 	
-	testcorp <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
+	testcorp <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid, n = lengthcorp))
 	# Check Corpus object
 	expect_that(length(testcorp), equals(lengthcorp))
 	expect_that(class(testcorp), equals(c("WebCorpus","VCorpus","Corpus")))
 	
 	# Check Content
 	#expect_that(all(sapply(testcorp, nchar) > 0), is_true())
-	contentratio <- length(which(sapply(testcorp, nchar)[1,] > 0)) / length(testcorp)
+	contentlength <- sapply(testcorp, function(x) 
+				if( length(content(x)) < 1) 0 else nchar(content(x)))	
+	contentratio <- length(which(contentlength > 0)) / length(testcorp)
 	expect_that(contentratio > 0.5, is_true())
 	
 	# Check Meta Data

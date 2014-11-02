@@ -15,7 +15,9 @@ test_that("GoogleNewsSource",{
 	expect_that(class(testcorp), equals(c("WebCorpus","VCorpus","Corpus")))
 	
 	# Check Content
-	contentratio <- length(which(sapply(testcorp, nchar)[1,] > 0)) / length(testcorp)
+	contentlength <- sapply(testcorp, function(x) 
+				if( length(content(x)) < 1) 0 else nchar(content(x)))	
+	contentratio <- length(which(contentlength > 0)) / length(testcorp)
 	expect_that(contentratio > 0.5, is_true())
 	
 	# Check Meta Data
