@@ -129,46 +129,46 @@ YahooFinanceSource <- function(query, params =
 	ws
 }
 
-#' @title Get feed data from Google Blog Search (\url{http://www.google.com/blogsearch}).
-#' @description Google Blog Search is a specialized search service/index for web blogs. Since the Googlebots
-#' are typically just scanning the blog's RSS feeds for updates they are much faster updating than comparable
-#' general purpose crawlers.
-#' @author Mario Annau
-#' @param query Google Blog Search query
-#' @param params, additional query parameters
-#' @param ... additional parameters to \code{\link{WebSource}}
-#' @return WebXMLSource
-#' @seealso \code{\link{WebSource}}
-#' @export
-#' @examples
-#' \dontrun{
-#' corpus <- Corpus(GoogleBlogSearchSource("Microsoft"))
-#' }
-#' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
-#' @importFrom boilerpipeR DefaultExtractor
-#' @aliases readGoogleBlogSearch
-GoogleBlogSearchSource <- function(query, params = 
-				list(	hl= 'en', 
-						q = query, 
-						ie='utf-8', 
-						num = 100, 
-						output='rss'), ...){
-	feed <- "http://blogsearch.google.com/blogsearch_feeds"
-
-	fq <- feedquery(feed, params)
-	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
-		nodes <- xpathSApply(tree, path = "//item")
-		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
-		nodes
-	}
-  postFUN = function(x){
-    x <- getLinkContent(x, extractor = DefaultExtractor)
-  }
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogleBlogSearch, 
-      postFUN = postFUN, ...)
-	ws
-}
+# @title Get feed data from Google Blog Search (\url{http://www.google.com/blogsearch}).
+# @description Google Blog Search is a specialized search service/index for web blogs. Since the Googlebots
+# are typically just scanning the blog's RSS feeds for updates they are much faster updating than comparable
+# general purpose crawlers.
+# @author Mario Annau
+# @param query Google Blog Search query
+# @param params, additional query parameters
+# @param ... additional parameters to \code{\link{WebSource}}
+# @return WebXMLSource
+# @seealso \code{\link{WebSource}}
+# @export
+# @examples
+# \dontrun{
+# corpus <- Corpus(GoogleBlogSearchSource("Microsoft"))
+# }
+# @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
+# @importFrom boilerpipeR DefaultExtractor
+# @aliases readGoogleBlogSearch
+#GoogleBlogSearchSource <- function(query, params = 
+#				list(	hl= 'en', 
+#						q = query, 
+#						ie='utf-8', 
+#						num = 100, 
+#						output='rss'), ...){
+#	feed <- "http://blogsearch.google.com/blogsearch_feeds"
+#
+#	fq <- feedquery(feed, params)
+#	parser <- function(cr){
+#		tree <- parse(cr, type = "XML")
+#		nodes <- xpathSApply(tree, path = "//item")
+#		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
+#		nodes
+#	}
+#  postFUN = function(x){
+#    x <- getLinkContent(x, extractor = DefaultExtractor)
+#  }
+#	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogleBlogSearch, 
+#      postFUN = postFUN, ...)
+#	ws
+#}
 
 
 #' @title Get feed data from Google News Search \url{http://news.google.com/}
@@ -383,7 +383,8 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 			connecttimeout = 30,
 			ssl.verifyhost= FALSE,
 			ssl.verifypeer = FALSE,
-			useragent = "R")
+			useragent = "R", 
+			cookiejar = tempfile())
 
 	postFUN <- function(x){
 		getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)

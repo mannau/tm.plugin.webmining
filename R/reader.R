@@ -205,27 +205,27 @@ readYahoo <- readWebXML(spec = list(
 	doc = PlainTextDocument())
 
 
-#' Read content from GoogleBlogSearchSource
-#' @importFrom XML getNodeSet xmlValue
-#' @importFrom NLP meta<-
-#' @noRd
-#' @export
-readGoogleBlogSearch <- readWebXML(spec=list(
-		heading = list("node", "//title"),
-		datetimestamp = list("function", function(node){
-					loc <- Sys.getlocale("LC_TIME")
-					Sys.setlocale("LC_TIME", "C")
-					val <- sapply(getNodeSet(node, "//dc:date"), xmlValue)
-					time <- strptime(val,format = "%a, %d %b %Y %H:%M:%S",tz = "GMT")
-					Sys.setlocale("LC_TIME", loc)
-					time
-				}),
-		origin = list("node", "//link"),
-		id = list("node", "//link"),
-		description = list("node", "//item/description"),
-		publisher = list("node","//dc:publisher"),
-		author = list("node","//dc:creator")),
-	doc = PlainTextDocument())
+# Read content from GoogleBlogSearchSource
+# @importFrom XML getNodeSet xmlValue
+# @importFrom NLP meta<-
+# @noRd
+# @export
+#readGoogleBlogSearch <- readWebXML(spec=list(
+#		heading = list("node", "//title"),
+#		datetimestamp = list("function", function(node){
+#					loc <- Sys.getlocale("LC_TIME")
+#					Sys.setlocale("LC_TIME", "C")
+#					val <- sapply(getNodeSet(node, "//dc:date"), xmlValue)
+#					time <- strptime(val,format = "%a, %d %b %Y %H:%M:%S",tz = "GMT")
+#					Sys.setlocale("LC_TIME", loc)
+#					time
+#				}),
+#		origin = list("node", "//link"),
+#		id = list("node", "//link"),
+#		description = list("node", "//item/description"),
+#		publisher = list("node","//dc:publisher"),
+#		author = list("node","//dc:creator")),
+#	doc = PlainTextDocument())
 
 
 #' Read content from YahooInplaySource
