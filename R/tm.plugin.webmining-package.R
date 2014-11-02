@@ -19,10 +19,9 @@
 #' @title Retrieve structured, textual data from various web sources
 #' @author Mario Annau \email{mario.annau@@gmail}
 #' @keywords package
-#' @seealso \code{\link{WebCorpus}} \code{\link{GoogleBlogSearchSource}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}} 
+#' @seealso \code{\link{WebCorpus}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}} 
 #' @examples
 #' \dontrun{
-#' googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 #' googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 #' googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
 #' nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))

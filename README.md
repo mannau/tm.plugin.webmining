@@ -20,7 +20,6 @@ The next snippet shows how to download and extract the main text from all suppor
 
 ```python
 library(tm.plugin.webmining)
-googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
 nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = "<nytimes_appid>"))

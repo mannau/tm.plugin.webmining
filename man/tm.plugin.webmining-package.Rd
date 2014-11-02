@@ -23,7 +23,6 @@ be extracted.
 }
 \examples{
 \dontrun{
-googleblogsearch <- WebCorpus(GoogleBlogSearchSource("Microsoft"))
 googlefinance <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 googlenews <- WebCorpus(GoogleNewsSource("Microsoft"))
 nytimes <- WebCorpus(NYTimesSource("Microsoft", appid = nytimes_appid))
@@ -37,7 +36,7 @@ yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
 Mario Annau \email{mario.annau@gmail}
 }
 \seealso{
-\code{\link{WebCorpus}} \code{\link{GoogleBlogSearchSource}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}}
+\code{\link{WebCorpus}} \code{\link{GoogleFinanceSource}} \code{\link{GoogleNewsSource}} \code{\link{NYTimesSource}} \code{\link{ReutersNewsSource}} \code{\link{YahooFinanceSource}} \code{\link{YahooInplaySource}} \code{\link{YahooNewsSource}}
 }
 \keyword{package}
 

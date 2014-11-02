@@ -2,11 +2,11 @@
 \name{NYTimesSource}
 \alias{NYTimesSource}
 \alias{readNYTimes}
-\title{Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api}).}
+\title{Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api_v2}).}
 \usage{
 NYTimesSource(query, n = 100, count = 10, appid, params = list(format =
-  "json", query = query, offset = seq(0, n - count, by = count), `api-key` =
-  appid), ...)
+  "json", q = query, page = seq(0, n - count, by = count), `api-key` = appid),
+  ...)
 }
 \arguments{
 \item{query}{character specifying query to be used to search NYTimes articles}
