@@ -124,16 +124,16 @@ function (doc, spec)
 #' @noRd
 #' @export
 readNYTimes <- readWebJSON(spec = list(
-#		Author = list("field", "byline"),
-		description = list("field", "body"),
+		author = list("field", c("byline", "original")),
+		description = list("field", "snippet"),
 		datetimestamp = list("function", function(node)
-					strptime(node[["date"]],
-							format = "%Y%m%d",
-							tz = "GMT")),
-		heading = list("field", "title"),
-		origin = list("field", "url"),
+					strptime(node[["pub_date"]],
+							format = "%Y-%m-%dT%H:%M:%SZ",
+							tz = "EST")),
+		heading = list("field", c("headline", "main")),
+		origin = list("field", "web_url"),
 		language = list("unevaluated", "en"),
-		id = list("field", "url")),
+		id = list("field", "_id")),
 	doc = PlainTextDocument())
 
 

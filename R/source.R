@@ -336,7 +336,7 @@ YahooNewsSource <- function(query, params =
 }
 
 
-#' @title Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api}). 
+#' @title Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api_v2}). 
 #' @description Excerpt from the website: "With the NYTimes Article Search API, you can search New York Times articles 
 #' from 1981 to today, retrieving headlines, abstracts, lead paragraphs, links to associated multimedia 
 #' and other article metadata. Along with standard keyword searching, the API also offers faceted searching. 
@@ -363,15 +363,15 @@ YahooNewsSource <- function(query, params =
 #' @aliases readNYTimes
 NYTimesSource <- function(query, n = 100, count = 10, appid, params = 
 		list(	format="json",
-				query = query,
-				offset=seq(0, n-count, by = count),
+				q = query,
+				page=seq(0, n-count, by = count),
 				"api-key" = appid),...){
-	feed <- "http://api.nytimes.com/svc/search/v1/article"
+	feed <- "http://api.nytimes.com/svc/search/v2/articlesearch.json"
 	fq <- feedquery(feed, params)
 	
 	parser <- function(cr){
 		json <- parse(cr, type = "JSON")
-		json$results
+		json$response$docs
 	}
 	
 	# Changing number of maxredirs to 20 for better contentratio
@@ -384,16 +384,13 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 			ssl.verifyhost= FALSE,
 			ssl.verifypeer = FALSE,
 			useragent = "R")
-	
-	#linkreader <- function(tree) tree[["url"]]
-	
+
+	postFUN <- function(x){
+		getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
+	}
 	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
-      postFUN = getLinkContent, curlOpts = curlOpts, ...)
-#	ws$DefaultReader <- readNYTimes
-#	ws$PostFUN <- function(x){
-#		x <- getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
-#		#tm_map(x, extract, extractor = ArticleExtractor)
-#	}
+      postFUN = postFUN, curlOpts = curlOpts, ...)
+	
 	ws
 }
 
