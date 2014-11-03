@@ -75,27 +75,6 @@ function(readerControl, reader = NULL, ...)
   readerControl
 }
 
-#WebCorpus <- function(x, readerControl = list(reader = x$reader, language = "en"), 
-#		postFUN = x$postFUN, retryEmpty = T, ...){
-#	corpus <- Corpus(x, readerControl, ...)
-#	if(!is.null(postFUN)){
-#		corpus <- postFUN(corpus)
-#	}
-#
-#	cm <- CMetaData(corpus)
-#	
-#	cm$MetaData$Source <- x
-#	cm$MetaData$ReaderControl <- readerControl
-#	cm$MetaData$PostFUN <- postFUN
-#	
-#	attr(corpus, "CMetaData") <- cm
-#	class(corpus) <- c("WebCorpus", class(corpus))
-#	if(retryEmpty){
-#		corpus <- getEmpty(corpus)
-#	}
-#	corpus
-#	
-#}
 
 #' @noRd
 #' @export

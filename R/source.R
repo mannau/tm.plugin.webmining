@@ -129,48 +129,6 @@ YahooFinanceSource <- function(query, params =
 	ws
 }
 
-# @title Get feed data from Google Blog Search (\url{http://www.google.com/blogsearch}).
-# @description Google Blog Search is a specialized search service/index for web blogs. Since the Googlebots
-# are typically just scanning the blog's RSS feeds for updates they are much faster updating than comparable
-# general purpose crawlers.
-# @author Mario Annau
-# @param query Google Blog Search query
-# @param params, additional query parameters
-# @param ... additional parameters to \code{\link{WebSource}}
-# @return WebXMLSource
-# @seealso \code{\link{WebSource}}
-# @export
-# @examples
-# \dontrun{
-# corpus <- Corpus(GoogleBlogSearchSource("Microsoft"))
-# }
-# @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
-# @importFrom boilerpipeR DefaultExtractor
-# @aliases readGoogleBlogSearch
-#GoogleBlogSearchSource <- function(query, params = 
-#				list(	hl= 'en', 
-#						q = query, 
-#						ie='utf-8', 
-#						num = 100, 
-#						output='rss'), ...){
-#	feed <- "http://blogsearch.google.com/blogsearch_feeds"
-#
-#	fq <- feedquery(feed, params)
-#	parser <- function(cr){
-#		tree <- parse(cr, type = "XML")
-#		nodes <- xpathSApply(tree, path = "//item")
-#		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
-#		nodes
-#	}
-#  postFUN = function(x){
-#    x <- getLinkContent(x, extractor = DefaultExtractor)
-#  }
-#	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogleBlogSearch, 
-#      postFUN = postFUN, ...)
-#	ws
-#}
-
-
 #' @title Get feed data from Google News Search \url{http://news.google.com/}
 #' @description Google News Search is one of the most popular news aggregators on the web. News
 #' can be retrieved for any customized user query. Up to 100 can be retrieved per 
@@ -237,69 +195,6 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
       postFUN = getLinkContent, ...)
 	ws
 }
-
-
-# @title Get feed data from Twitter Search API (\url{https://dev.twitter.com/docs/api/1/get/search}). 
-# @description The microblogging and social networking service twitter provides text based messages
-# of up to 140 characters which can be searched and retrieved through the Twitter Search API. 
-# Up to 1500 tweets are provided per request and no external content retrieval is necessary. 
-# However, it should be noted that tweets contain special character formats and are quite 
-# challenging for text mining tasks (therefore require specialized toolset).
-# @author Mario Annau
-# @param query Google Blog Search query
-# @param n number of results, defaults to 1500
-# @param params, additional query parameters, see \url{http://search.twitter.com/api/}
-# @param ... additional parameters to \code{\link{WebSource}}
-# @return WebXMLSource
-# @seealso \code{\link{WebSource}}
-# @export
-# @examples
-# \dontrun{
-# corpus <- Corpus(TwitterSource("Microsoft"))
-# }
-# @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
-# @importFrom tm tm_map
-# @aliases readTwitter
-#TwitterSource <- function(query, n = 1500, params = 
-#				list(lang = 'en'),...){
-#	feed <- "http://search.twitter.com/search.atom"
-#
-#	if(is.null(params[["q"]])) params[["q"]] <- query
-#	if(is.null(params[["rpp"]])) params[["rpp"]] <- 100
-#	if(is.null(params[["page"]])) params[["page"]] <- seq(1,ceiling(n/params[["rpp"]]), by = 1)
-#
-#	parser <- function(cr){
-#		namespaces = c(	"google" = "http://base.google.com/ns/1.0", 
-#				"openSearch" = "http://a9.com/-/spec/opensearch/1.1/",  
-#				"georss"="http://www.georss.org/georss", 
-#				"a" = "http://www.w3.org/2005/Atom", 
-#				"twitter"="http://api.twitter.com/")
-#		
-#		tree <- parse(cr, type = "XML")
-#		nodes <- xpathSApply(tree, path = "///a:entry", namespaces = namespaces)
-#		#to surpress namespace warnings while parsing
-#		xmlns1 <- lapply(nodes, newXMLNamespace, "http://api.twitter.com/", "twitter")
-#		xmlns2 <- lapply(nodes, newXMLNamespace, "http://www.georss.org/georss", "georss")
-#		nodes
-#	}
-#	
-#	fq <- feedquery(feed, params)
-#	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, ...)
-#	ws$DefaultReader <- readTwitter
-#	#TODO: error with extractHTMLStrip, need tryCatch or whatever
-#	enc <- switch(.Platform$OS.type,
-#						unix = "UTF-8", 
-#						windows = "latin1")
-#			
-#	ws$PostFUN <- function(x){
-#		x <- tm_map(x, encloseHTML)
-#		tm_map(x, extract, extractor = extractHTMLStrip, encoding = enc)
-#	}
-#	
-#	ws
-#  stop("Not implemented yet")
-#}
-
 
 #' @title Get feed data from Yahoo! News (\url{http://news.yahoo.com/}).
 #' @description Yahoo! News is a large news aggregator and provides a customizable RSS feed. 
@@ -373,24 +268,8 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 		json <- parse(cr, type = "JSON")
 		json$response$docs
 	}
-	
-	# Changing number of maxredirs to 20 for better contentratio
-	curlOpts = curlOptions(	verbose = FALSE,
-			followlocation = TRUE, 
-			maxconnects = 5,
-			maxredirs = 20,
-			timeout = 30,
-			connecttimeout = 30,
-			ssl.verifyhost= FALSE,
-			ssl.verifypeer = FALSE,
-			useragent = "R", 
-			cookiejar = tempfile())
-
-	postFUN <- function(x){
-		getLinkContent(x, extractor = ArticleExtractor, curlOpts = curlOpts)
-	}
 	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
-      postFUN = postFUN, curlOpts = curlOpts, ...)
+      postFUN = getLinkContent, ...)
 	
 	ws
 }

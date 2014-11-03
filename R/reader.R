@@ -24,14 +24,14 @@ readWeb <- FunctionGenerator(function(spec, doc, parser, contentparser, freeFUN 
 		tree <- parser(elem$content)
 	
 		###Set Content
-		content(doc) <- if ("Content" %in% names(spec)){
-							content <- contentparser(tree, spec[["Content"]])
+		content(doc) <- if ("content" %in% names(spec)){
+							content <- contentparser(tree, spec[["content"]])
 						}
 						else{
 							character(0)
 						}		
 
-		for (n in setdiff(names(spec), "Content")){
+		for (n in setdiff(names(spec), "content")){
 				meta(doc, n) <- contentparser(tree, spec[[n]])
 			}
 			
@@ -136,31 +136,6 @@ readNYTimes <- readWebJSON(spec = list(
 		id = list("field", "_id")),
 	doc = PlainTextDocument())
 
-
-# Read content from TwitterSource
-# @importFrom XML getNodeSet
-# @importFrom XML xmlValue
-# @noRd
-# @export
-#readTwitter <- readWebXML(spec = list(
-#		Author = list("node", "//author/name"),
-#		AuthorURI = list("node", "//author/uri"),
-#		Content = list("node", "//content"),
-#		datetimestamp = list("function", function(node)
-#					strptime(sapply(getNodeSet(node, "//published"), xmlValue),
-#							format = "%Y-%m-%dT%H:%M:%S",
-#							tz = "GMT")),
-#		Updated = list("function", function(node)
-#					strptime(sapply(getNodeSet(node, "//updated"), xmlValue),
-#							format = "%Y-%m-%dT%H:%M:%S",
-#							tz = "GMT")),
-#		Source = list("node", "//twitter:source"),
-#		language = list("node", "//twitter:lang"),
-#		Geo = list("node", "//twitter:geo"),
-#		id = list("node",  "//id")),
-#	doc = PlainTextDocument())
-
-
 #' Read content from Google...Source
 #' @importFrom XML getNodeSet xmlValue
 #' @importFrom NLP meta<-
@@ -203,30 +178,6 @@ readYahoo <- readWebXML(spec = list(
 		description = list("node", "//item/description"),
 		id = list("node",  "//guid")),
 	doc = PlainTextDocument())
-
-
-# Read content from GoogleBlogSearchSource
-# @importFrom XML getNodeSet xmlValue
-# @importFrom NLP meta<-
-# @noRd
-# @export
-#readGoogleBlogSearch <- readWebXML(spec=list(
-#		heading = list("node", "//title"),
-#		datetimestamp = list("function", function(node){
-#					loc <- Sys.getlocale("LC_TIME")
-#					Sys.setlocale("LC_TIME", "C")
-#					val <- sapply(getNodeSet(node, "//dc:date"), xmlValue)
-#					time <- strptime(val,format = "%a, %d %b %Y %H:%M:%S",tz = "GMT")
-#					Sys.setlocale("LC_TIME", loc)
-#					time
-#				}),
-#		origin = list("node", "//link"),
-#		id = list("node", "//link"),
-#		description = list("node", "//item/description"),
-#		publisher = list("node","//dc:publisher"),
-#		author = list("node","//dc:creator")),
-#	doc = PlainTextDocument())
-
 
 #' Read content from YahooInplaySource
 #' @importFrom XML getNodeSet xmlValue
