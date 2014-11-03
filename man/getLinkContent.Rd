@@ -6,7 +6,7 @@
 getLinkContent(corpus, links = sapply(corpus, meta, "origin"),
   timeout.request = 30, chunksize = 20, verbose = getOption("verbose"),
   curlOpts = curlOptions(verbose = FALSE, followlocation = TRUE, maxconnects =
-  5, maxredirs = 10, timeout = timeout.request, connecttimeout =
+  5, maxredirs = 20, timeout = timeout.request, connecttimeout =
   timeout.request, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE, useragent =
   "R", cookiejar = tempfile()), retry.empty = 3, sleep.time = 3,
   extractor = ArticleExtractor, .encoding = integer(), ...)
