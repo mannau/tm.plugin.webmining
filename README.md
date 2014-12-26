@@ -1,4 +1,5 @@
 # tm.plugin.webmining
+[![Build Status](https://travis-ci.org/mannau/tm.plugin.webmining.svg?branch=master)](https://travis-ci.org/mannau/tm.plugin.webmining)
 
 **tm.plugin.webmining** is an R-package which facilitates text retrieval from feed formats like XML (RSS, ATOM) and JSON. Also direct retrieval from HTML is supported. As most (news) feeds only incorporate small fractions of the original text **tm.plugin.webmining** even extracts the text from the original text source.
 

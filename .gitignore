@@ -5,3 +5,4 @@
 Makefile
 *.Rcheck
 /release
+/.DS_Store

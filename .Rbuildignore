@@ -1,4 +1,5 @@
 .settings
+.travis.yml
 .gitignore
 .project
 .README.md.html
