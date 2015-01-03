@@ -1,8 +1,3 @@
-# TODO: Add comment
-# 
-# Author: mario
-###############################################################################
-
 context("YahooInPlaySource")
 
 test_that("YahooInPlaySource",{

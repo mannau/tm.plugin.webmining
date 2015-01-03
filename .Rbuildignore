@@ -8,4 +8,3 @@ README.md
 release
 .*tar.gz
 data/.gitignore
-data/nytimes_appid.rda

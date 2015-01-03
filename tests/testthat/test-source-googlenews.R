@@ -1,15 +1,13 @@
-# TODO: Add comment
-# 
-# Author: mario
-###############################################################################
-
 context("GoogleNewsSource")
 
 test_that("GoogleNewsSource",{
 	
-	lengthcorp <- 100
+	lengthcorp <- 20
+	query <- "Microsoft"
 		
-	testcorp <- WebCorpus(GoogleNewsSource("Microsoft"))
+	testcorp <- WebCorpus(GoogleNewsSource(query, 
+					params = list(hl = "en", q = query, ie = "utf-8", 
+							num = lengthcorp, output = "rss")))
 	# Check Corpus object
 	expect_that(length(testcorp), equals(lengthcorp))
 	expect_that(class(testcorp), equals(c("WebCorpus","VCorpus","Corpus")))

@@ -7,7 +7,7 @@
 WebSource(feedurls, class = "WebXMLSource", reader, parser,
   encoding = "UTF-8", curlOpts = curlOptions(followlocation = TRUE,
   maxconnects = 20, maxredirs = 10, timeout = 30, connecttimeout = 30),
-  postFUN = NULL, ...)
+  postFUN = NULL, retrieveFeedURL = TRUE, ...)
 }
 \arguments{
 \item{feedurls}{urls from feeds to be retrieved}
@@ -23,6 +23,8 @@ WebSource(feedurls, class = "WebXMLSource", reader, parser,
 \item{curlOpts}{a named list or CURLOptions object identifying the curl options for the handle. Type \code{listCurlOptions()} for all Curl options available.}
 
 \item{postFUN}{function saved in WebSource object and called to retrieve full text content from feed urls}
+
+\item{retrieveFeedURL}{logical; Specify if feedurls should be downloaded first.}
 
 \item{...}{additional parameters passed to \code{WebSource} object/structure}
 }

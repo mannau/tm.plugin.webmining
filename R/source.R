@@ -12,6 +12,7 @@
 #' @param encoding specifies default encoding, defaults to 'UTF-8'
 #' @param curlOpts a named list or CURLOptions object identifying the curl options for the handle. Type \code{listCurlOptions()} for all Curl options available.
 #' @param postFUN function saved in WebSource object and called to retrieve full text content from feed urls 
+#' @param retrieveFeedURL logical; Specify if feedurls should be downloaded first.
 #' @param ... additional parameters passed to \code{WebSource} object/structure
 #' @return WebSource
 #' @export
@@ -22,12 +23,21 @@ WebSource <- function(feedurls, class = "WebXMLSource", reader, parser, encoding
 				maxconnects = 20,
 				maxredirs = 10,
 				timeout = 30,
-				connecttimeout = 30), postFUN = NULL, ...){
-	content_raw <- getURL(feedurls, .opts = curlOpts)
-	content_parsed <- unlist(lapply(content_raw, parser), recursive = FALSE)
+				connecttimeout = 30), postFUN = NULL, retrieveFeedURL = TRUE, ...){
+
+	content_raw <- NULL
+	if(retrieveFeedURL) {
+		content_raw <- getURL(feedurls, .opts = curlOpts)
+	} else {
+		content_raw <- feedurls
+	}
+  # Filter empty content
+  content_raw <- content_raw[sapply(content_raw, nchar) > 0]
+
+  content_parsed <- unlist(lapply(content_raw, parser), recursive = FALSE)
   structure(list(encoding = encoding, length = length(content_parsed), names = NA_character_,
               position = 0, reader = reader, content = content_parsed, feedurls = feedurls,
-              parser = parser, curlOpts = curlOpts, postFUN = postFUN, ...), 
+              parser = parser, curlOpts = curlOpts, postFUN = postFUN, retrieveFeedURL = retrieveFeedURL, ...), 
             class = unique(c(class, "WebSource", "SimpleSource")))
 }
 
@@ -49,7 +59,15 @@ source.update.WebXMLSource <-
 source.update.WebHTMLSource <- 
 source.update.WebJSONSource <- 
 function(x) {
-	content_raw <- getURL(x$feedurls, .opts = x$curlOpts)
+  content_raw <- NULL
+	if(x$retrieveFeedURL) {
+    content_raw <- getURL(x$feedurls, .opts = x$curlOpts)
+	} else {
+    content_raw <- x$feedurls
+  }
+  # Filter empty content
+  content_raw <- content_raw[sapply(content_raw, nchar) > 0]
+  
 	content_parsed <- unlist(lapply(content_raw, x$parser), recursive = FALSE)
 	x$content <- content_parsed
 	x$position <- 0
@@ -85,12 +103,12 @@ GoogleFinanceSource <- function(query, params =
 						output='rss'),...){
 	feed <- "http://www.google.com/finance/company_news"
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
+		tree <- parse(cr, type = "XML", asText = FALSE)
 		xpathSApply(tree, path = "//item")
 	}
 	fq <- feedquery(feed, params)
   ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogle, 
-      postFUN = getLinkContent, ...)
+      postFUN = getLinkContent, retrieveFeedURL = FALSE,...)
 	ws
 }
 
@@ -116,16 +134,17 @@ GoogleFinanceSource <- function(query, params =
 #' @aliases readYahoo
 YahooFinanceSource <- function(query, params = 
 				list(	s= query, 
-						n = 20), ...){
-	feed <- "http://finance.yahoo.com/rss/headline"
+						region = "US",
+						lang = "en-US"), ...){
+	feed <- "http://feeds.finance.yahoo.com/rss/2.0/headline"
 	
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
+		tree <- parse(cr, type = "XML", asText = FALSE)
 		xpathSApply(tree, path = "//item")
 	}
 	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahoo, 
-      postFUN = getLinkContent, ...)
+      postFUN = getLinkContent, retrieveFeedURL = FALSE, ...)
 	ws
 }
 
@@ -154,13 +173,13 @@ GoogleNewsSource <- function(query, params =
 	feed <- "http://news.google.com/news"
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
+		tree <- parse(cr, type = "XML", asText = FALSE)
 		nodes <- xpathSApply(tree, path = "//item")
 		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
 		nodes
 	}
 	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogle,
-      postFUN = getLinkContent, ...)
+      postFUN = getLinkContent, retrieveFeedURL = FALSE, ...)
 	ws
 }
 

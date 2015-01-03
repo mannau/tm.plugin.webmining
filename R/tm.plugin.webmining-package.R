@@ -44,3 +44,12 @@ NULL
 #' yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
 #' }
 NULL
+
+#' AppID for the NYtimes-API.
+#' 
+#' USED ONLY FOR PACKAGE TESTING. PLEASE DOWNLOAD YOUR OWN KEY AT \url{http://developer.nytimes.com/}!!!
+#' @name nytimes_appid
+#' @docType data
+#' @author Mario Annau
+#' @keywords data
+NULL

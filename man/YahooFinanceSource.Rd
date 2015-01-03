@@ -5,7 +5,8 @@
 \alias{readYahoo}
 \title{Get feed data from Yahoo! Finance.}
 \usage{
-YahooFinanceSource(query, params = list(s = query, n = 20), ...)
+YahooFinanceSource(query, params = list(s = query, region = "US", lang =
+  "en-US"), ...)
 }
 \arguments{
 \item{query}{ticker symbols of companies to be searched for, see \url{http://finance.yahoo.com/lookup}.}

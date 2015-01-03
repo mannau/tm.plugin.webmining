@@ -1,13 +1,8 @@
-# TODO: Add comment
-# 
-# Author: mario
-###############################################################################
-
 context("ReutersNewsSource")
 
 test_that("ReutersNewsSource",{
 	
-	lengthcorp <- 25
+	lengthcorp <- 20
 		
 	testcorp <- WebCorpus(ReutersNewsSource("businessNews"))
 	# Check Corpus object
