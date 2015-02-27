@@ -1,6 +1,6 @@
 Package: tm.plugin.webmining
 Version: 1.2.3
-Date: 2015-01-03
+Date: 2015-02-27
 Title: Retrieve structured, textual data from various web sources
 Authors@R: c(person("Mario", "Annau", role = c("aut", "cre"),
     email = "mario.annau@gmail.com"))
