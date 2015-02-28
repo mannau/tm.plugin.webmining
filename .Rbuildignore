@@ -8,3 +8,4 @@ README.md
 release
 .*tar.gz
 data/.gitignore
+travis-tool.sh
