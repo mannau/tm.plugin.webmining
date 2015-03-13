@@ -256,11 +256,13 @@ YahooNewsSource <- function(query, params =
 #' and other article metadata. Along with standard keyword searching, the API also offers faceted searching. 
 #' The available facets include Times-specific fields such as sections, taxonomic classifiers and controlled 
 #' vocabulary terms (names of people, organizations and geographic locations)."
-#' Feed retrieval is limited to 100 items.
+#' Feed retrieval is limited to 1000 items (or 100 pages).
 #' @author Mario Annau
 #' @param query character specifying query to be used to search NYTimes articles
-#' @param n number of results defaults to 100
+#' @param n number of items, defaults to 100
 #' @param count number of results per page, defaults to 10
+#' @param sleep integer; Seconds to sleep between feed retrieval.
+#' @param curlOpts CURLOptions; RCurl options used for feed retrieval.
 #' @param appid Developer App id to be used, obtained from \url{http://developer.nytimes.com/}
 #' @param params additional query parameters, specified as list, see \url{http://developer.nytimes.com/docs/read/article_search_api}
 #' @param ... additional parameters to \code{\link{WebSource}}
@@ -275,11 +277,17 @@ YahooNewsSource <- function(query, params =
 #' @importFrom RJSONIO fromJSON
 #' @importFrom boilerpipeR ArticleExtractor
 #' @aliases readNYTimes
-NYTimesSource <- function(query, n = 100, count = 10, appid, params = 
+NYTimesSource <- function(query, n = 100, appid, count = 10, 
+        sleep = 1, params = 
 		list(	format="json",
 				q = query,
-				page=seq(0, n-count, by = count),
-				"api-key" = appid),...){
+				page = 1:ceiling(n/count),
+				"api-key" = appid), 
+    curlOpts = curlOptions(	followlocation = TRUE, 
+        maxconnects = 10,
+        maxredirs = 10,
+        timeout = 30,
+        connecttimeout = 30), ...){
 	feed <- "http://api.nytimes.com/svc/search/v2/articlesearch.json"
 	fq <- feedquery(feed, params)
 	
@@ -287,13 +295,21 @@ NYTimesSource <- function(query, n = 100, count = 10, appid, params =
 		json <- parse(cr, type = "JSON")
 		json$response$docs
 	}
-	ws <- WebSource(feedurls = fq, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
-      postFUN = getLinkContent, ...)
+  
+  start <- seq(1, length(fq), by = count)
+  end <- seq(count, length(fq), by = count)
+  
+  feedcontent <- sapply(1:length(start), function(i) {
+              fcontent <- getURL(fq[start[i]:end[i]], .opts = curlOpts)
+              Sys.sleep(sleep)
+              fcontent
+          })
+  
+	ws <- WebSource(feedurls = feedcontent, class = "WebJSONSource", parser = parser, reader = readNYTimes, 
+      postFUN = getLinkContent, retrieveFeedURL = FALSE, ...)
 	
 	ws
 }
-
-
 
 #' @title Get News from Yahoo Inplay.
 #' @description Yahoo Inplay lists a range of company news provided by Briefing.com. Since Yahoo Inplay

@@ -5,20 +5,25 @@
 \alias{readNYTimes}
 \title{Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api_v2}).}
 \usage{
-NYTimesSource(query, n = 100, count = 10, appid, params = list(format =
-  "json", q = query, page = seq(0, n - count, by = count), `api-key` = appid),
-  ...)
+NYTimesSource(query, n = 100, appid, count = 10, sleep = 1,
+  params = list(format = "json", q = query, page = 1:ceiling(n/count),
+  `api-key` = appid), curlOpts = curlOptions(followlocation = TRUE,
+  maxconnects = 10, maxredirs = 10, timeout = 30, connecttimeout = 30), ...)
 }
 \arguments{
 \item{query}{character specifying query to be used to search NYTimes articles}
 
-\item{n}{number of results defaults to 100}
-
-\item{count}{number of results per page, defaults to 10}
+\item{n}{number of items, defaults to 100}
 
 \item{appid}{Developer App id to be used, obtained from \url{http://developer.nytimes.com/}}
 
+\item{count}{number of results per page, defaults to 10}
+
+\item{sleep}{integer; Seconds to sleep between feed retrieval.}
+
 \item{params}{additional query parameters, specified as list, see \url{http://developer.nytimes.com/docs/read/article_search_api}}
+
+\item{curlOpts}{CURLOptions; RCurl options used for feed retrieval.}
 
 \item{...}{additional parameters to \code{\link{WebSource}}}
 }
@@ -28,7 +33,7 @@ from 1981 to today, retrieving headlines, abstracts, lead paragraphs, links to a
 and other article metadata. Along with standard keyword searching, the API also offers faceted searching.
 The available facets include Times-specific fields such as sections, taxonomic classifiers and controlled
 vocabulary terms (names of people, organizations and geographic locations)."
-Feed retrieval is limited to 100 items.
+Feed retrieval is limited to 1000 items (or 100 pages).
 }
 \examples{
 \dontrun{

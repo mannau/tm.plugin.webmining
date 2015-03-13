@@ -4,7 +4,7 @@ data(nytimes_appid)
 
 test_that("NYTimesSource",{
 	
-	lengthcorp <- 20
+	lengthcorp <- 200
 	
 	if(!exists(as.character(substitute(nytimes_appid)))){
 		cat("No Variable nytimes_appid provided. Skipping Test...\n")
