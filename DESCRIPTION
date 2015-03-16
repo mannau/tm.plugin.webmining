@@ -1,6 +1,6 @@
 Package: tm.plugin.webmining
-Version: 1.2.3
-Date: 2015-02-27
+Version: 1.3
+Date: 2015-03-29
 Title: Retrieve structured, textual data from various web sources
 Authors@R: c(person("Mario", "Annau", role = c("aut", "cre"),
     email = "mario.annau@gmail.com"))
@@ -15,7 +15,7 @@ Imports:
     RJSONIO
 Suggests:
     testthat
-Description: tm.plugin.webmining facilitates text retrieval from feed
+Description: Facilitate text retrieval from feed
     formats like XML (RSS, ATOM) and JSON. Also direct retrieval from
     HTML is supported. As most (news) feeds only incorporate small
     fractions of the original text tm.plugin.webmining even retrieves
