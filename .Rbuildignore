@@ -9,3 +9,5 @@ release
 .*tar.gz
 data/.gitignore
 travis-tool.sh
+inst/googleSearch.R
+tests/testthat.R.cran
