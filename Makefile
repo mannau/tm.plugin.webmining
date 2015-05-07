@@ -17,7 +17,7 @@ PKG_FILES := DESCRIPTION $(ROXYGENFILES) $(R_FILES) $(TEST_FILES)
 CHECKPATH := $(PKG_NAME).Rcheck
 CHECKLOG := `cat $(CHECKPATH)/00check.log`
 
-.PHONY: all build build-cran check manual install clean compileAttributes
+.PHONY: all build build-cran check check-cran manual install clean compileAttributes 
 
 all: 
 	install
@@ -43,6 +43,11 @@ roxygen: $(R_FILES)
 check: $(PKG_NAME)_$(PKG_VERSION).tar.gz 
 	@rm -rf $(CHECKPATH)
 	$(R) CMD check --no-multiarch --no-manual --no-clean $(PKG_NAME)_$(PKG_VERSION).tar.gz
+
+check-cran: 
+	@make build-cran
+	@rm -rf $(CHECKPATH)
+	$(R) CMD check --no-manual --no-clean --as-cran $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 00check.log: check
 	@mv $(CHECKPATH)\\00check.log .
