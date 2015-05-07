@@ -29,7 +29,7 @@ build-cran:
 	@make roxygen
 	@cp tests/testthat.R tests/testthat.R.temp
 	@cp tests/testthat.R.cran tests/testthat.R
-	$(R) CMD build --resave-data --no-build-vignettes .
+	$(R) CMD build --resave-data .
 	@cp tests/testthat.R.temp tests/testthat.R
 	@rm tests/testthat.R.temp
 	
@@ -47,7 +47,7 @@ check: $(PKG_NAME)_$(PKG_VERSION).tar.gz
 check-cran: 
 	@make build-cran
 	@rm -rf $(CHECKPATH)
-	$(R) CMD check --no-manual --no-clean --as-cran $(PKG_NAME)_$(PKG_VERSION).tar.gz
+	$(R) CMD check --as-cran --no-clean $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
 00check.log: check
 	@mv $(CHECKPATH)\\00check.log .
