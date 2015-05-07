@@ -2,7 +2,6 @@
 .project
 .README.md.html
 *.tar.gz
-Makefile
 *.Rcheck
 /release
 /.DS_Store
