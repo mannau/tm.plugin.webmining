@@ -11,3 +11,4 @@ data/.gitignore
 travis-tool.sh
 inst/googleSearch.R
 tests/testthat.R.cran
+tests/testthat.R.temp
