@@ -33,7 +33,6 @@ WebSource <- function(feedurls, class = "WebXMLSource", reader, parser, encoding
 	}
   # Filter empty content
   content_raw <- content_raw[sapply(content_raw, nchar) > 0]
-
   content_parsed <- unlist(lapply(content_raw, parser), recursive = FALSE)
   structure(list(encoding = encoding, length = length(content_parsed), names = NA_character_,
               position = 0, reader = reader, content = content_parsed, feedurls = feedurls,
@@ -215,9 +214,8 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 	ws
 }
 
-#' @title Get feed data from Yahoo! News (\url{http://news.yahoo.com/}).
-#' @description Yahoo! News is a large news aggregator and provides a customizable RSS feed. 
-#' Only a maximum of 20 items can be retrieved.
+#' @title Get news data from Yahoo! News (\url{https://news.search.yahoo.com/search/}).
+#' @description Currently, only a maximum of 10 items can be retrieved.
 #' @author Mario Annau
 #' @param query words to be searched in Yahoo News, multiple words must be separated by '+'
 #' @param params, additional query parameters, see \url{http://developer.yahoo.com/rss/}
@@ -233,18 +231,16 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 #' @importFrom XML xpathSApply
 #' @importFrom XML getNodeSet
 #' @importFrom XML xmlValue
+#' @aliases readYahooHTML
 YahooNewsSource <- function(query, params = 
-				list(	p= query, 
-						n = 20,
-						ei = "UTF-8"), ...){
-	feed <- "http://news.search.yahoo.com/rss"
-	
+				list(	p= query), ...){
+	feed <- "https://news.search.yahoo.com/search"
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML")
-		xpathSApply(tree, path = "//item")
+		tree <- parse(cr, type = "HTML", useInternalNodes = TRUE)
+		xpathSApply(tree, path = "//div[contains(@class, 'dd algo')]")
 	}
-	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahoo, 
+	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahooHTML, 
       postFUN = getLinkContent, ...)
 	ws
 }

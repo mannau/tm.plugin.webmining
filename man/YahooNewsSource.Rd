@@ -2,9 +2,10 @@
 % Please edit documentation in R/source.R
 \name{YahooNewsSource}
 \alias{YahooNewsSource}
-\title{Get feed data from Yahoo! News (\url{http://news.yahoo.com/}).}
+\alias{readYahooHTML}
+\title{Get news data from Yahoo! News (\url{https://news.search.yahoo.com/search/}).}
 \usage{
-YahooNewsSource(query, params = list(p = query, n = 20, ei = "UTF-8"), ...)
+YahooNewsSource(query, params = list(p = query), ...)
 }
 \arguments{
 \item{query}{words to be searched in Yahoo News, multiple words must be separated by '+'}
@@ -17,8 +18,7 @@ YahooNewsSource(query, params = list(p = query, n = 20, ei = "UTF-8"), ...)
 WebXMLSource
 }
 \description{
-Yahoo! News is a large news aggregator and provides a customizable RSS feed.
-Only a maximum of 20 items can be retrieved.
+Currently, only a maximum of 10 items can be retrieved.
 }
 \examples{
 \dontrun{

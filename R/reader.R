@@ -161,7 +161,7 @@ readGoogle <- readWebXML(spec = list(
 
 #' Read content from Yahoo RSS Source
 #' @importFrom XML getNodeSet xmlValue
-#' @seealso \code{\link{YahooFinanceSource}} \code{\link{YahooNewsSource}}
+#' @seealso \code{\link{YahooFinanceSource}}
 #' @noRd
 #' @export
 readYahoo <- readWebXML(spec = list(
@@ -178,6 +178,27 @@ readYahoo <- readWebXML(spec = list(
 		description = list("node", "//item/description"),
 		id = list("node",  "//guid")),
 	doc = PlainTextDocument())
+
+#' Read content from Yahoo HTML Source
+#' @importFrom XML getNodeSet xmlValue
+#' @seealso \code{\link{YahooNewsSource}}
+#' @noRd
+#' @export
+readYahooHTML <- readWebHTML(spec = list(
+    heading = list("node", "//div[@class='compTitle']/h3[@class='title']/a"),
+    datetimestamp = list("function", function(node){
+                loc <- Sys.getlocale("LC_TIME")
+                Sys.setlocale("LC_TIME", "C")
+                val <- sapply(getNodeSet(node, "//span[@class='tri fc-2nd ml-10']"), xmlValue)
+                time <- strptime(val, format = "%b %d %H:%M %p",tz = "GMT")
+                Sys.setlocale("LC_TIME", loc)
+                time
+            }),
+    origin = list("attribute", "//div[@class='compTitle']/h3[@class='title']/a/@href"),
+    author = list("node", "//span[@class='cite']"),
+    description = list("node", "//div[@class='compText']/p"),
+    id = list("attribute", "//div[@class='compTitle']/h3[@class='title']/a/@href")),
+doc = PlainTextDocument())
 
 #' Read content from YahooInplaySource
 #' @importFrom XML getNodeSet xmlValue
