@@ -16,6 +16,13 @@ library(devtools)
 install_github("mannau/tm.plugin.webmining")
 ```
 
+Windows users need to use the following command to install from github:
+
+```python
+library(devtools)
+install_github("mannau/boilerpipeR", args = "--no-multiarch")
+```
+
 ## Usage
 The next snippet shows how to download and extract the main text from all supported sources as WebCorpus objects including a rich set of metadata like *Author*, *DateTimeStamp* or *Source*:
 
