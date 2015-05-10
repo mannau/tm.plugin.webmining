@@ -19,11 +19,15 @@
 #' @importFrom XML getNodeSet xmlValue
 #' @importFrom RCurl curlOptions
 WebSource <- function(feedurls, class = "WebXMLSource", reader, parser, encoding = "UTF-8",
-		curlOpts = curlOptions(	followlocation = TRUE, 
-				maxconnects = 20,
-				maxredirs = 10,
-				timeout = 30,
-				connecttimeout = 30), postFUN = NULL, retrieveFeedURL = TRUE, ...){
+        curlOpts = curlOptions(
+                followlocation = TRUE, 
+                maxconnects = 5,
+                maxredirs = 20,
+                timeout = 30,
+                connecttimeout = 30,
+                ssl.verifyhost = FALSE,
+                ssl.verifypeer = FALSE), 
+        postFUN = NULL, retrieveFeedURL = TRUE, ...){
 
 	content_raw <- NULL
 	if(retrieveFeedURL) {

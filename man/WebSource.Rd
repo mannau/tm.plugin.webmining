@@ -6,8 +6,9 @@
 \usage{
 WebSource(feedurls, class = "WebXMLSource", reader, parser,
   encoding = "UTF-8", curlOpts = curlOptions(followlocation = TRUE,
-  maxconnects = 20, maxredirs = 10, timeout = 30, connecttimeout = 30),
-  postFUN = NULL, retrieveFeedURL = TRUE, ...)
+  maxconnects = 5, maxredirs = 20, timeout = 30, connecttimeout = 30,
+  ssl.verifyhost = FALSE, ssl.verifypeer = FALSE), postFUN = NULL,
+  retrieveFeedURL = TRUE, ...)
 }
 \arguments{
 \item{feedurls}{urls from feeds to be retrieved}
