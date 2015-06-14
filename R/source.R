@@ -242,7 +242,7 @@ YahooNewsSource <- function(query, params =
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
 		tree <- parse(cr, type = "HTML", useInternalNodes = TRUE)
-		xpathSApply(tree, path = "//div[contains(@class, 'dd algo')]")
+		xpathSApply(tree, path = "//div[contains(@class, 'NewsArticle')]")
 	}
 	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahooHTML, 
       postFUN = getLinkContent, ...)
