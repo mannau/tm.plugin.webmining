@@ -2,7 +2,7 @@ context("GoogleNewsSource")
 
 test_that("GoogleNewsSource",{
 	
-	lengthcorp <- 20
+	lengthcorp <- 30
 	query <- "Microsoft"
 		
 	testcorp <- WebCorpus(GoogleNewsSource(query, 

@@ -5,7 +5,7 @@
 \title{Get feed data from Google News Search \url{http://news.google.com/}}
 \usage{
 GoogleNewsSource(query, params = list(hl = "en", q = query, ie = "utf-8", num
-  = 100, output = "rss"), ...)
+  = 30, output = "rss"), ...)
 }
 \arguments{
 \item{query}{Google News Search query}
@@ -19,7 +19,7 @@ WebXMLSource
 }
 \description{
 Google News Search is one of the most popular news aggregators on the web. News
-can be retrieved for any customized user query. Up to 100 can be retrieved per
+can be retrieved for any customized user query. Up to 30 can be retrieved per
 request.
 }
 \examples{
