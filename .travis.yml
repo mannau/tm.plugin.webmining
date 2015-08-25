@@ -1,11 +1,20 @@
 language: r
 
+env:
+  global:
+    - _R_CHECK_CRAN_INCOMING_=FALSE
+
 # Be strict when checking our package
 warnings_are_errors: true
 cran: http://cran.us.r-project.org
 
 # System dependencies for HTTP calling
 apt_packages:
- - libcurl4-openssl-dev
- - libxml2-dev
- - r-cran-rjava
+  - libcurl4-openssl-dev
+  - libxml2-dev
+  - r-cran-rjava
+r_github_packages:
+  - jimhester/covr
+after_success:
+  - R --slave --vanilla -e 'library(covr); pc <- package_coverage(); pc; codecov(coverage = pc)'
+ 
