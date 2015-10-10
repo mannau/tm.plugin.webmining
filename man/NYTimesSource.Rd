@@ -5,10 +5,10 @@
 \alias{readNYTimes}
 \title{Get feed data from NYTimes Article Search (\url{http://developer.nytimes.com/docs/read/article_search_api_v2}).}
 \usage{
-NYTimesSource(query, n = 100, appid, count = 10, sleep = 1,
-  params = list(format = "json", q = query, page = 1:ceiling(n/count),
-  `api-key` = appid), curlOpts = curlOptions(followlocation = TRUE,
-  maxconnects = 10, maxredirs = 10, timeout = 30, connecttimeout = 30), ...)
+NYTimesSource(query, n = 100, appid, sleep = 1, params = list(format =
+  "json", q = query, page = 0:(ceiling(n/10) - 1), `api-key` = appid),
+  curlOpts = curlOptions(followlocation = TRUE, maxconnects = 10, maxredirs =
+  10, timeout = 30, connecttimeout = 30), ...)
 }
 \arguments{
 \item{query}{character specifying query to be used to search NYTimes articles}
@@ -16,8 +16,6 @@ NYTimesSource(query, n = 100, appid, count = 10, sleep = 1,
 \item{n}{number of items, defaults to 100}
 
 \item{appid}{Developer App id to be used, obtained from \url{http://developer.nytimes.com/}}
-
-\item{count}{number of results per page, defaults to 10}
 
 \item{sleep}{integer; Seconds to sleep between feed retrieval.}
 

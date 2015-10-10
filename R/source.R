@@ -260,7 +260,6 @@ YahooNewsSource <- function(query, params =
 #' @author Mario Annau
 #' @param query character specifying query to be used to search NYTimes articles
 #' @param n number of items, defaults to 100
-#' @param count number of results per page, defaults to 10
 #' @param sleep integer; Seconds to sleep between feed retrieval.
 #' @param curlOpts CURLOptions; RCurl options used for feed retrieval.
 #' @param appid Developer App id to be used, obtained from \url{http://developer.nytimes.com/}
@@ -277,11 +276,11 @@ YahooNewsSource <- function(query, params =
 #' @importFrom RJSONIO fromJSON
 #' @importFrom boilerpipeR ArticleExtractor
 #' @aliases readNYTimes
-NYTimesSource <- function(query, n = 100, appid, count = 10, 
+NYTimesSource <- function(query, n = 100, appid, 
         sleep = 1, params = 
 		list(	format="json",
 				q = query,
-				page = 1:ceiling(n/count),
+				page = 0:(ceiling(n/10)-1),
 				"api-key" = appid), 
     curlOpts = curlOptions(	followlocation = TRUE, 
         maxconnects = 10,
@@ -296,9 +295,10 @@ NYTimesSource <- function(query, n = 100, appid, count = 10,
 		json$response$docs
 	}
   
+  count <- 10
   start <- seq(1, length(fq), by = count)
-  end <- seq(count, length(fq), by = count)
-  
+  end <- if(n < count) length(fq) else seq(count, length(fq), length.out = length(start))
+
   feedcontent <- sapply(1:length(start), function(i) {
               fcontent <- getURL(fq[start[i]:end[i]], .opts = curlOpts)
               Sys.sleep(sleep)
