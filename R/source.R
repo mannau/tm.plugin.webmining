@@ -176,13 +176,13 @@ GoogleNewsSource <- function(query, params =
 	feed <- "http://news.google.com/news"
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML", asText = FALSE)
+		tree <- parse(cr, type = "XML", asText = TRUE)
 		nodes <- xpathSApply(tree, path = "//item")
 		xmlns1 <- lapply(nodes, newXMLNamespace, "http://purl.org/dc/elements/1.1/", "dc")
 		nodes
 	}
 	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readGoogle,
-      postFUN = getLinkContent, retrieveFeedURL = FALSE, ...)
+      postFUN = getLinkContent, retrieveFeedURL = TRUE, ...)
 	ws
 }
 
