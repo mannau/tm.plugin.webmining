@@ -54,9 +54,12 @@ function(url, asText = TRUE, encoding, ...){
 		return("")
 	}
 
-	parseerror <- capture.output(tree <- htmlTreeParse(url, asText = asText, useInternalNodes = TRUE, encoding = encoding, ...))
+	parseerror <- capture.output(tree <- htmlTreeParse(url, asText = asText, 
+                  useInternalNodes = TRUE, encoding = encoding, ...))
 	
 	children <- xmlChildren(tree)
+  children <- children[!sapply(children, function(x) 
+                      grepl("<!DOCTYPE", toString.XMLNode(x)))]
 	childlen <- sapply(children, function(x) nchar(toString.XMLNode(x)))
 	childidx <- max(which(childlen == max(childlen)))
 	#childidx <- min(childidx, length(children))
