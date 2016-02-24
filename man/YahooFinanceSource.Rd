@@ -25,7 +25,7 @@ news items can easily be retrieved. However, the maximum number of items is 20.
 }
 \examples{
 \dontrun{
-corpus <- Corpus(YahooFinanceSource("MSFT"))
+corpus <- WebCorpus(YahooFinanceSource("MSFT"))
 }
 }
 \author{

@@ -22,7 +22,7 @@ Currently, only a maximum of 10 items can be retrieved.
 }
 \examples{
 \dontrun{
-corpus <- Corpus(YahooNewsSource("Microsoft"))
+corpus <- WebCorpus(YahooNewsSource("Microsoft"))
 }
 }
 \author{

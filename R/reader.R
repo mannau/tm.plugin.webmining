@@ -241,5 +241,27 @@ readReutersNews <- readWebXML(spec = list(
 				category = list("node", "//category")),
 		doc = PlainTextDocument())
 
-
-
+#' Read content from LiberationSource
+#' @importFrom XML getNodeSet xmlValue
+#' @importFrom NLP meta<-
+#' @noRd
+#' @export
+readLiberationSource <- readWebXML(spec = list(
+        heading = list("node", "//title"),
+        datetimestamp = list("function", function(node){
+                    loc <- Sys.getlocale("LC_TIME")
+                    Sys.setlocale("LC_TIME", "C")
+                    val <- sapply(getNodeSet(node, "//updated"), xmlValue)
+                    time <- strptime(val, format = "%Y-%m-%dT%H:%M:%S",tz = "GMT")
+                    Sys.setlocale("LC_TIME", loc)
+                    time
+                }),
+        origin = list("attribute", "//link[1]/@href"),
+        author = list("node", "//author/name"),
+        description = list("function", function(node){
+                    val <- sapply(getNodeSet(node, "//summary"), xmlValue)
+                    extractHTMLStrip(sprintf("<html>%s</html>", val), asText = T)
+                }),
+        id = list("node",  "//id"),
+        language = list("unevaluated", "fr")),
+    doc = PlainTextDocument())

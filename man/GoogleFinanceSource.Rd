@@ -25,7 +25,7 @@ particularly strong for US-Markets. However, only up to 20 feed items can be ret
 }
 \examples{
 \dontrun{
-corpus <- Corpus(GoogleFinanceSource("NASDAQ:MSFT"))
+corpus <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 }
 }
 \author{

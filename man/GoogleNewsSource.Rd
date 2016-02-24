@@ -24,7 +24,7 @@ request.
 }
 \examples{
 \dontrun{
-corpus <- Corpus(GoogleNewsSource("Microsoft"))
+corpus <- WebCorpus(GoogleNewsSource("Microsoft"))
 }
 }
 \author{

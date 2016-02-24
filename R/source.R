@@ -90,7 +90,7 @@ function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(GoogleFinanceSource("NASDAQ:MSFT"))
+#' corpus <- WebCorpus(GoogleFinanceSource("NASDAQ:MSFT"))
 #' }
 #' @importFrom XML xmlInternalTreeParse
 #' @importFrom XML xpathSApply
@@ -127,7 +127,7 @@ GoogleFinanceSource <- function(query, params =
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(YahooFinanceSource("MSFT"))
+#' corpus <- WebCorpus(YahooFinanceSource("MSFT"))
 #' }
 #' @seealso \code{\link{WebSource}}
 #' @importFrom XML xmlInternalTreeParse
@@ -164,7 +164,7 @@ YahooFinanceSource <- function(query, params =
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(GoogleNewsSource("Microsoft"))
+#' corpus <- WebCorpus(GoogleNewsSource("Microsoft"))
 #' }
 #' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
 GoogleNewsSource <- function(query, params = 
@@ -198,7 +198,7 @@ GoogleNewsSource <- function(query, params =
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(ReutersNewsSource("businessNews"))
+#' corpus <- WebCorpus(ReutersNewsSource("businessNews"))
 #' }
 #' @importFrom XML xmlInternalTreeParse xpathSApply getNodeSet xmlValue newXMLNamespace
 #' @aliases readReutersNews
@@ -228,7 +228,7 @@ ReutersNewsSource <- function(query = 'businessNews', ...){
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(YahooNewsSource("Microsoft"))
+#' corpus <- WebCorpus(YahooNewsSource("Microsoft"))
 #' }
 #' @seealso \code{\link{WebSource}}
 #' @importFrom XML xmlInternalTreeParse
@@ -322,7 +322,7 @@ NYTimesSource <- function(query, n = 100, appid,
 #' @export
 #' @examples
 #' \dontrun{
-#' corpus <- Corpus(YahooInplaySource())
+#' corpus <- WebCorpus(YahooInplaySource())
 #' }
 #' @importFrom XML htmlTreeParse
 #' @importFrom XML xpathSApply
@@ -337,6 +337,34 @@ YahooInplaySource <- function(...){
 	
 	ws <- WebSource(feedurls = url, class = "WebHTMLSource", parser = parser, reader = readYahooInplay, ...)
 	ws
+}
+
+#' @title Get news data from french Liberation News Paper (\url{http://rss.liberation.fr/rss}).
+#' @author Mario Annau
+#' @param query feed to be retrieved, defaults to 'latest'
+#' @param ... additional parameters to \code{\link{WebSource}}
+#' @return WebXMLSource
+#' @export
+#' @examples
+#' \dontrun{
+#' corpus <- WebCorpus(LiberationSource("latest"))
+#' }
+#' @seealso \code{\link{WebSource}}
+#' @importFrom XML xmlInternalTreeParse
+#' @importFrom XML xpathSApply
+#' @importFrom XML getNodeSet
+#' @importFrom XML xmlValue
+#' @aliases readLiberationSource
+LiberationSource <- function(query = "latest", ...){
+    fq <- paste("http://rss.liberation.fr/rss", query, sep = "/")
+    parser <- function(cr){
+        tree <- parse(cr, type = "XML", useInternalNodes = TRUE)
+        namespaces <- c(ns = "http://www.w3.org/2005/Atom")
+        xpathSApply(tree, "//ns:entry", namespaces = namespaces)
+    }
+    ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readLiberationSource, 
+            postFUN = getLinkContent, retrieveFeedURL = TRUE, ...)
+    ws
 }
 
 #' @importFrom XML saveXML

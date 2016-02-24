@@ -21,7 +21,7 @@ request can vary substantially.
 }
 \examples{
 \dontrun{
-corpus <- Corpus(YahooInplaySource())
+corpus <- WebCorpus(YahooInplaySource())
 }
 }
 \author{

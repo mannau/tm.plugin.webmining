@@ -31,6 +31,7 @@ reutersnews <- WebCorpus(ReutersNewsSource("businessNews"))
 yahoofinance <- WebCorpus(YahooFinanceSource("MSFT"))
 yahooinplay <- WebCorpus(YahooInplaySource())
 yahoonews <- WebCorpus(YahooNewsSource("Microsoft"))
+liberation <- WebCorpus(LiberationSource("latest"))
 }
 }
 \author{

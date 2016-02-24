@@ -22,7 +22,7 @@ through the Google Reader API (\code{link{GoogleReaderSource}}) could be conside
 }
 \examples{
 \dontrun{
-corpus <- Corpus(ReutersNewsSource("businessNews"))
+corpus <- WebCorpus(ReutersNewsSource("businessNews"))
 }
 }
 \author{
