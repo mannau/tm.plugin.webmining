@@ -139,15 +139,15 @@ YahooFinanceSource <- function(query, params =
 				list(	s= query, 
 						region = "US",
 						lang = "en-US"), ...){
-	feed <- "http://feeds.finance.yahoo.com/rss/2.0/headline"
+	feed <- "https://feeds.finance.yahoo.com/rss/2.0/headline"
 	
 	fq <- feedquery(feed, params)
 	parser <- function(cr){
-		tree <- parse(cr, type = "XML", asText = FALSE)
+		tree <- parse(cr, type = "XML", asText = TRUE)
 		xpathSApply(tree, path = "//item")
 	}
 	ws <- WebSource(feedurls = fq, class = "WebXMLSource", parser = parser, reader = readYahoo, 
-      postFUN = getLinkContent, retrieveFeedURL = FALSE, ...)
+      postFUN = getLinkContent, retrieveFeedURL = TRUE,  ...)
 	ws
 }
 
